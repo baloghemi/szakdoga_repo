@@ -4,6 +4,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ActionpointController;
+use App\Http\Controllers\DiaryController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -67,13 +68,19 @@ Route::get('/join_meeting/{meeting_id}', [MeetingController::class,'join_meeting
 Route::get('/actionpoints', [ActionpointController::class,'actionpoints'])->name('actionpoints');
 //csapat listázása
 Route::get('/actionpoint_list', [ActionpointController::class,'actionpoint_list'])->name('actionpointList');
+//státusz módosítás
+Route::get('/actionpoints/right{act_id}', [ActionpointController::class,'status_change_right'])->name('statusChangeRight');
+Route::get('/actionpoints/left{act_id}', [ActionpointController::class,'status_change_left'])->name('statusChangeLeft');
+
 
 //blogok
 Route::get('/blogs', function () {
     return view('blogs');
 })->name('blogs');
 
-//napló
-Route::get('/diary', function () {
-    return view('diary');
-})->name('diary');
+//NAPLÓ
+Route::get('/diary', [DiaryController::class,'diary'])->name('diary');
+//időjárás jelentés
+Route::get('/diary/weather_report{meeting_id}', [DiaryController::class,'weather_report'])->name('weatherReport');
+
+

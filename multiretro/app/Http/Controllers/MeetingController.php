@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\Diary;
 
 
 use Illuminate\Http\Request;
@@ -74,10 +75,10 @@ class MeetingController extends Controller
         return redirect()->route('meetings'); 
     }
 
-    //csatlakozás
+    //megnyitás
     public function join_meeting($meeting_id) {
         $meeting = Meeting::where('id', $meeting_id)->firstOrFail();
-        return view('meeting.join_meeting')->with('meeting', $meeting);
+        return view('meeting.join_meeting', ['diary' => Diary::where('meeting_id', $meeting_id)->get()])->with('meeting', $meeting);
     }
 
 }

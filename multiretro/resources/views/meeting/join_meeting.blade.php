@@ -12,83 +12,83 @@
             <li class="list-group-item h6">Dátum: {{ \Carbon\Carbon::parse($meeting->meet_date)->format('Y/m/d H:i') }}</li>            
             <li class="list-group-item h6">Csapat: {{ $meeting->team->name }}</li>
             <li class="list-group-item h6">Csapattagok: {{ $meeting->team->users()->pluck('name') }}, 
-                                                  {{ $meeting->team->team_owner->name }}</li>
+                                                        {{ $meeting->team->team_owner->name }}</li>
         </ul>
 
         <h3>Hangulat - időjárás jelentés</h3>        
 
+        <form action="{{ isset($diary->weather_report) ? '' : route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col" class="text-center">
-                        <img src="{{asset('img/sunny.png')}}" class= "img-fluid" alt="sunny"></th>
+                        <img src="{{asset('img/sunny.png')}}" class="img-fluid" alt="sunny"></th>
                     <th scope="col" class="text-center">
-                        <img src="{{asset('img/cloudy.png')}}" class= "img-fluid" alt="cloudy"></th>
+                        <img src="{{asset('img/cloudy.png')}}" class="img-fluid" alt="cloudy"></th>
                     <th scope="col" class="text-center">
-                        <img src="{{asset('img/rainy.png')}}" class= "img-fluid" alt="rainy"></th>
+                        <img src="{{asset('img/rainy.png')}}" class="img-fluid" alt="rainy"></th>
                     <th scope="col" class="text-center">
-                        <img src="{{asset('img/stormy.png')}}" class= "img-fluid" alt="stormy"></th>
+                        <img src="{{asset('img/stormy.png')}}" class="img-fluid" alt="stormy"></th>
                 </tr>
             </thead>
-            <tbody>
-                <form method="POST">
-
+                <tbody>
                     <tr>
-                    <th scope="row" class="radio">Sprint állapota</th>
+                    <th scope="row" class="radio">Teljesítmény</th>
                         <td class="text-center">
-                            <input type="radio" value="sunny" name="sprint">
+                            <input type="radio" value="1" name="performance"
+                            {{is_null(old('performance')) && isset($diary->weather_report) && $diary->weather_report['1'] == 1 ? "checked" : old('performance')}}
+                            >                            
                         </td>
                         <td class="text-center">
-                           <input type="radio" value="cloudy" name="sprint">
+                            <input type="radio" value="2" name="performance">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="rainy" name="sprint">
+                            <input type="radio" value="3" name="performance">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="stormy" name="sprint">
+                            <input type="radio" value="4" name="performance">
                         </td>
                     </tr>
 
                     <tr>
-                    <th scope="row" class="radio">Csapatmunka</th>
+                    <th scope="row" class="radio">Együttműködés</th>
                         <td class="text-center">
-                            <input type="radio" value="sunny" name="teamwork">
+                            <input type="radio" value="1" name="collaboration"> 
                         </td>
                         <td class="text-center">
-                           <input type="radio" value="cloudy" name="teamwork">
+                            <input type="radio" value="2" name="collaboration">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="rainy" name="teamwork">
+                            <input type="radio" value="3" name="collaboration">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="stormy" name="teamwork">
+                            <input type="radio" value="4" name="collaboration">
                         </td>
                     </tr>
 
                     <tr>
                     <th scope="row" class="radio">Közérzet</th>
                         <td class="text-center">
-                            <input type="radio" value="sunny" name="feeling">
+                            <input type="radio" value="1" name="feeling">
                         </td>
                         <td class="text-center">
-                           <input type="radio" value="cloudy" name="feeling">
+                            <input type="radio" value="2" name="feeling">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="rainy" name="feeling">
+                            <input type="radio" value="3" name="feeling">
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="stormy" name="feeling">
+                            <input type="radio" value="4" name="feeling">
                         </td>
                     </tr>
+                </tbody>
+            </table>
 
-                </form>
-            </tbody>
-        </table>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg mt-5 w-50">Időjárás jelentés küldése</button>
-        </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg mt-5 w-50">Időjárás jelentés küldése</button>
+            </div>
+        </form>
 
 
         <br>
