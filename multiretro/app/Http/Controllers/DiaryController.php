@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class DiaryController extends Controller
 {
     public function diary() {
-        return view('diary.diary');
+        return view('diary.diary', ['diaries' => Diary::all()]);
     }
 
     //időjárás jelentés mentés

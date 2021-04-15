@@ -61,6 +61,9 @@ Route::get('/meeting_list', [MeetingController::class,'meeting_list'])->name('me
 Route::get('/meeting_list/{meeting_id}', [MeetingController::class,'delete_meeting'])->name('deleteMeeting');
 //csatlakozás
 Route::get('/join_meeting/{meeting_id}', [MeetingController::class,'join_meeting'])->name('joinMeeting');
+//megbeszélésen belül akciópont státusz módosítás
+Route::get('/right{act_id}', [MeetingController::class,'status_change_right_meeting'])->name('statusChangeRightMeeting');
+Route::get('/left{act_id}', [MeetingController::class,'status_change_left_meeting'])->name('statusChangeLeftMeeting');
 
 
 
@@ -71,6 +74,11 @@ Route::get('/actionpoint_list', [ActionpointController::class,'actionpoint_list'
 //státusz módosítás
 Route::get('/actionpoints/right{act_id}', [ActionpointController::class,'status_change_right'])->name('statusChangeRight');
 Route::get('/actionpoints/left{act_id}', [ActionpointController::class,'status_change_left'])->name('statusChangeLeft');
+//új akciópont
+Route::get('/new_actionpoint{meeting_id}', [ActionpointController::class,'new_actionpoint'])->name('newActionpoint');
+
+
+
 
 
 //blogok

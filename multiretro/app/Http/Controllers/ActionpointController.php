@@ -53,4 +53,22 @@ class ActionpointController extends Controller
 
         return redirect()->route('actionpoints'); 
     }
+
+    //új akciópont létrehozása
+    public function new_actionpoint(Request $request, $meeting_id) {       
+        $validated = $request->validate([
+            'description' => 'required',           
+        ]);
+
+        $action = new Actionpoint;
+        $action->description = $request->input('description');
+        $action->act_date = now();
+        $action->user_id = $request->input('user');
+        $action->meeting_id = $meeting_id; 
+        
+        $action->save();        
+        
+        return redirect()->route('joinMeeting', ['meeting_id' => $meeting_id]);
+    }
+    
 }

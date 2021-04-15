@@ -6,6 +6,7 @@
             <h2>Megbeszélés - {{ $meeting->name }}</h2>
         </div> 
 
+        <!--Megbeszélés adatainak kilistázása-->
         <h3>Adatok</h3>
         <ul class="list-group mb-5">            
             <li class="list-group-item h6">A megbeszélést létrehozta: {{ $meeting->meet_owner->name }}</li>
@@ -15,9 +16,10 @@
                                                         {{ $meeting->team->team_owner->name }}</li>
         </ul>
 
+        <!--Idójárás jelentés technika-->
         <h3>Hangulat - időjárás jelentés</h3>        
 
-        <form action="{{ isset($diary->weather_report) ? '' : route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">
+        <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -36,9 +38,7 @@
                     <tr>
                     <th scope="row" class="radio">Teljesítmény</th>
                         <td class="text-center">
-                            <input type="radio" value="1" name="performance"
-                            {{is_null(old('performance')) && isset($diary->weather_report) && $diary->weather_report['1'] == 1 ? "checked" : old('performance')}}
-                            >                            
+                            <input type="radio" value="1" name="performance">                            
                         </td>
                         <td class="text-center">
                             <input type="radio" value="2" name="performance">
@@ -90,10 +90,154 @@
             </div>
         </form>
 
+        <!--Idójárás jelentés eredmények átlaga-->
+        <h3>Eredmények:</h3>
+        <div class="card">
+            <div class="card-body">
+            </div>
+        </div>
+        
 
-        <br>
+        <!--Akciópontok létrehozásának helye-->        
+        <div class="card mb-4 mt-4">
+        <h3 class="card-header">Akciópont létrehozása</h3>
+            <div class="card-body">
+
+            <form action="{{ route('newActionpoint', ['meeting_id' => $meeting->id]) }}" method="GET">                      
+                <div>
+                    <label for="description" class="h5">Akciópont leírása</label>
+                    <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása"></textarea>
+                    @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            
+                <h5 class="mt-2">Választható felhasználók:</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="{{$meeting->team->team_owner->id}}" name="user">
+                    <label class="form-check-label" for="user">{{ $meeting->team->team_owner->name }}</label>
+                </div>
+                @foreach ($meeting->team->users as $user)            
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="{{$user->id}}" name="user">
+                        <label class="form-check-label" for="user">{{ $user->name }}</label>
+                    </div>           
+                @endforeach 
+                
+                <br>
+                <button type="submit" class="btn btn-primary">Mentés</button>            
+
+            </form>            
+            </div>
+        </div>
+
+        <!--Kanban tábla az akciópontokkal-->
         <h3>Kanban tábla</h3>
-        <p>“Megvalósításra vár”, “Megvalósítása folyamatban”, “Megvalósítva”</p>
+        <table class="table table-bordered">
+            <thead class="text-center">
+                <tr>                
+                    <th scope="col" style="width:33%">Megvalósításra vár</th>
+                    <th scope="col" style="width:33%">Megvalósítása folyamatban</th>
+                    <th scope="col" style="width:33%">Megvalósítva</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                    
+                <td>            
+                @foreach ($meeting->actionpoints as $act)
+                    @if($act->status == "to_do")                    
+                        <div class="card" style="background-color: pink">
+                            <table class="card-header card-table table table-borderless text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width:15%"></th>
+                                    <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
+                                    <th scope="col" style="width:15%">
+                                        <a class="btn btn-outline-danger btn-sm" style="float: right;" 
+                                        href="{{ route('statusChangeRightMeeting', ['act_id' => $act->id]) }}">></a>
+                                    </th>
+                                </tr>
+                                </thead> 
+                            </table>
+
+                            <div class="card-body">                      
+                                <p class="card-text">{{ $act->description }}</p>                                
+                            </div>
+                            <div class="card-footer text-center">
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
+                            </div>
+                        </div>
+                    <br>
+                    @endif        
+                @endforeach
+                </td>
+
+                <td>          
+                @foreach ($meeting->actionpoints as $act)
+                    @if($act->status == "doing")
+                        <div class="card" style="background-color: aquamarine">
+                            <table class="card-header card-table table table-borderless text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width:15%">
+                                        <a class="btn btn-outline-success btn-sm" style="float: left;" 
+                                        href="{{ route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}"><</a>
+                                    </th>
+                                    <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
+                                    <th scope="col" style="width:15%">
+                                        <a class="btn btn-outline-success btn-sm" style="float: right;" 
+                                        href="{{ route('statusChangeRightMeeting', ['act_id' => $act->id]) }}">></a>
+                                    </th>
+                                </tr>
+                                </thead> 
+                            </table>
+                           
+                            <div class="card-body">                      
+                                <p class="card-text">{{ $act->description }}</p>                                
+                            </div>
+                            <div class="card-footer text-center">
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
+                            </div>
+                        </div>
+                    <br>
+                    @endif                   
+                @endforeach
+                </td>
+
+                <td>       
+                @foreach ($meeting->actionpoints as $act)
+                    @if($act->status == "done")
+                        <div class="card" style="background-color: lightSkyBlue">
+                            <table class="card-header card-table table table-borderless text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width:15%">
+                                        <a class="btn btn-outline-primary btn-sm" style="float: left;"
+                                        href="{{ route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}"><</a>
+                                    </th>
+                                    <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
+                                    <th scope="col" style="width:15%"></th>
+                                </tr>
+                                </thead> 
+                            </table>
+                           
+                            <div class="card-body">                      
+                                <p class="card-text">{{ $act->description }}</p>                               
+                            </div>
+                            <div class="card-footer text-center">
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
+                            </div>
+                        </div>          
+                    <br>
+        
+                    @endif
+                @endforeach
+                </td>
+                </tr>
+            </tbody>
+        </table> 
 
 
 

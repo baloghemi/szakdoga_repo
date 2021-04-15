@@ -6,6 +6,7 @@ use App\Models\Meeting;
 use App\Models\User;
 use App\Models\Team;
 use App\Models\Diary;
+use App\Models\Actionpoint;
 
 
 use Illuminate\Http\Request;
@@ -78,7 +79,40 @@ class MeetingController extends Controller
     //megnyitás
     public function join_meeting($meeting_id) {
         $meeting = Meeting::where('id', $meeting_id)->firstOrFail();
-        return view('meeting.join_meeting', ['diary' => Diary::where('meeting_id', $meeting_id)->get()])->with('meeting', $meeting);
+        return view('meeting.join_meeting')->with('meeting', $meeting);
     }
+
+    //státusz módosítása megbeszélésen
+    public function status_change_right_meeting($act_id) {    
+        $action = Actionpoint::where('id', $act_id)->firstOrFail();
+
+        if ($action->status == 'to_do') {
+            $action->status = 'doing';            
+        }
+        else { //doing
+            $action->status = 'done';           
+        }
+
+        $action->updated_at = now();
+        $action->save();
+
+        return redirect()->route('joinMeeting', ['meeting_id' => $action->meeting_id]);         
+    }
+
+    public function status_change_left_meeting($act_id) { 
+        $action = Actionpoint::where('id', $act_id)->firstOrFail();
+
+        if ($action->status == 'doing') {
+            $action->status = 'to_do';            
+        }       
+        else { //done
+            $action->status = 'doing';
+        }
+        $action->updated_at = now();
+        $action->save();
+
+        return redirect()->route('joinMeeting', ['meeting_id' => $action->meeting_id]); 
+    }
+
 
 }

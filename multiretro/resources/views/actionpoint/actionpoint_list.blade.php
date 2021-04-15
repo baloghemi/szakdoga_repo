@@ -5,20 +5,10 @@
         <div class="text-center mb-4">
             <h2>Akciópontok</h2>
         </div> 
-
-        <!--@forelse ($actionpoints as $act)
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-primary h5">{{ $act->meeting_act->name }}</li>
-            <li class="list-group-item h5">Létrehozta: {{ $act->action_owner->name }}</li>
-            <li class="list-group-item h5">Dátum: {{ \Carbon\Carbon::parse($act->act_date)->format('Y/m/d H:i') }}</li>            
-            <li class="list-group-item h5">Szöveg: {{ $act->description }}</li>
-            <li class="list-group-item h5">Státusz: {{ $act->status }}</li>
-        </ul>
-        @empty
-            <p>Nincs megjeleníthető akciópont!</p>
-        @endforelse-->
+        
 
         @foreach ($meetings as $meeting)
+        @if($meeting->team->users->contains(Auth::user()) or $meeting->team->team_owner == Auth::user())
         <h4 class="text-center">{{ $meeting->name }}</h4>
         <table class="table table-bordered">
             <thead class="text-center">
@@ -84,6 +74,7 @@
                 </tr>
             </tbody>
         </table> 
+        @endif
         @endforeach
 
         <div class="text-center">

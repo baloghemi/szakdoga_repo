@@ -25,17 +25,17 @@ class Meeting extends Model
 
     //egy megbeszéléshez több akciópont tartozhat: 1->n
     public function actionpoints() {
-        return $this->hasMany(Actionpoint::class, 'actionpoint_id', 'id');
+        return $this->hasMany(Actionpoint::class, 'meeting_id');
     }
 
     //egy megbeszéléshez több plusz-mínusz feladat tartozhat: 1->n
     public function plus_minus_tasks() {
-        return $this->hasMany(PlusMinusTask::class, 'plus_minus_task_id', 'id');
+        return $this->hasMany(PlusMinusTask::class, 'meeting_id');
     }
 
     //egy megbeszéléshez több naplózott sor tartozhat: 1->n
     public function diaries() {
-        return $this->hasMany(Diary::class, 'diary_id', 'id');
+        return $this->hasMany(Diary::class, 'meeting_id');
     }
 
 }
