@@ -17,7 +17,7 @@ class Blog extends Model
         'tags' => 'array',
     ];
 
-    //egy blognak csak egy tulajdonosa lehet: 1->n
+    //egy blognak csak egy tulajdonosa lehet: 1->1
     public function blog_owner() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

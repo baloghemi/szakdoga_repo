@@ -70,5 +70,36 @@ class ActionpointController extends Controller
         
         return redirect()->route('joinMeeting', ['meeting_id' => $meeting_id]);
     }
+
+    //akciópont módosítása
+    public function send_to_modify_actionpoint($act_id) {
+        $action = Actionpoint::where('id', $act_id)->firstOrFail();
+        return view('actionpoint.modify_actionpoint')->with('action', $action);
+    }
+
+    public function modify_actionpoint(Request $request, $act_id) {
+        $action = Actionpoint::where('id', $act_id)->firstOrFail();
+
+        $validated = $request->validate([
+            'description' => 'required',           
+        ]);
+
+        $action->description = $request->input('description');        
+        $action->user_id = $request->input('user'); 
+        
+        $action->save();
+
+        return redirect()->route('actionpoints'); 
+    }
+
+    //akciópont törlése
+    public function delete_actionpoint($act_id) {
+        $action = Actionpoint::where('id', $act_id)->firstOrFail();
+        
+        $action->delete();
+
+        return redirect()->route('actionpoints'); 
+    }
     
+
 }

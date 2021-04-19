@@ -46,14 +46,14 @@ class MeetingSeeder extends Seeder
             'name' => 'Test Meeting 4',
             'owner' => '3',
             'meet_date' => Carbon::create('2020', '04', '01', '13', '10'),
-            'team_id' => '1',
+            'team_id' => '4',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('meetings')->insert([
             'name' => 'Test Meeting 5',
-            'owner' => '5',
+            'owner' => '4',
             'meet_date' => Carbon::create('2020', '05', '01', '16'),
             'team_id' => '3',
             'created_at' => now(),

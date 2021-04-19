@@ -19,7 +19,7 @@ class Team extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
     
-    //egy csapatnak csak egy tulajdonosa lehet: 1->n
+    //egy csapatnak csak egy tulajdonosa lehet: 1->1
     public function team_owner() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

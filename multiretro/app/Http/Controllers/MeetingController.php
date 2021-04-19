@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Auth;
 class MeetingController extends Controller
 {
     public function meetings() {
-        return view('meeting.meetings', ['meetings' => Meeting::where('owner', Auth::user()->id)->get(),
+        return view('meeting.meetings', ['meetings' => Meeting::where('owner', Auth::user()->id)->orderBy('meet_date')->get(),
                                          'teams' => Team::all(),
-                                         'all_meet' => Meeting::all()]);
+                                         'all_meet' => Meeting::orderBy('meet_date')->get()]);
     }
 
     //új megbeszélés létrehozása

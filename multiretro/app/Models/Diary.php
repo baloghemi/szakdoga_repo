@@ -20,12 +20,12 @@ class Diary extends Model
         'form'           => 'array', //kulcs-érték párok
     ];
 
-    //egy naplózott sornak csak egy tulajdonosa lehet: 1->n
+    //egy naplózott sornak csak egy tulajdonosa lehet: 1->1
     public function diary_owner() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    //egy naplózott sor csak egy megbeszéléshez tartozhat
+    //egy naplózott sor csak egy megbeszéléshez tartozhat: 1->1
     public function meeting_diary() {
         return $this->belongsTo(Meeting::class, 'meeting_id', 'id');
     }

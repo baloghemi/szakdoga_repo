@@ -76,8 +76,11 @@ Route::get('/actionpoints/right{act_id}', [ActionpointController::class,'status_
 Route::get('/actionpoints/left{act_id}', [ActionpointController::class,'status_change_left'])->name('statusChangeLeft');
 //új akciópont
 Route::get('/new_actionpoint{meeting_id}', [ActionpointController::class,'new_actionpoint'])->name('newActionpoint');
-
-
+//akciópont módosítása
+Route::get('/actionpoints/{act_id}', [ActionpointController::class,'send_to_modify_actionpoint'])->name('sendToModifyActionpoint');
+Route::post('/actionpoints/{act_id}', [ActionpointController::class,'modify_actionpoint'])->name('modifyActionpoint');
+//akciópont törlése
+Route::get('/actionpoint_delete_{act_id}', [ActionpointController::class,'delete_actionpoint'])->name('deleteActionpoint');
 
 
 

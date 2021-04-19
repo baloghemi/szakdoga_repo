@@ -7,10 +7,13 @@
 
             <a class="btn btn-primary btn-lg mb-5 w-50" href="{{ route('actionpointList') }}" style="margin-top: 2em;">Összes akciópont megjelenítése</a>
 
-            <h3>Kanban tábla</h3>
+            <h3>Kanban tábla</h3>            
         </div> 
 
         <table class="table table-bordered">
+            <caption>
+
+            </caption>
             <thead class="text-center">
                 <tr>                
                     <th scope="col" style="width:33%">Megvalósításra vár</th>
@@ -37,8 +40,9 @@
                                 </thead> 
                             </table>
 
-                            <div class="card-body">                      
+                            <div class="card-body text-center">                      
                                 <p class="card-text">{{ $act->description }}</p>                                
+                                <a class="btn btn-outline-danger btn-sm" href="{{ route('sendToModifyActionpoint', ['act_id' => $act->id])}}">Szerkesztés</a>                                
                             </div>
                             <div class="card-footer text-center">
                                 Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
@@ -57,7 +61,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" style="width:15%">
-                                        <a class="btn btn-outline-success btn-sm" style="float: left;" 
+                                        <a class="btn btn-outline-success btn-sm" style="float: left; a: black;" 
                                         href="{{ route('statusChangeLeft', ['act_id' => $act->id]) }}"><</a>
                                     </th>
                                     <th scope="col" style="width:70%">{{ $act->meeting_act->name }}</th>
@@ -69,8 +73,9 @@
                                 </thead> 
                             </table>
                            
-                            <div class="card-body">                      
+                            <div class="card-body text-center">                      
                                 <p class="card-text">{{ $act->description }}</p>                                
+                                <a class="btn btn-outline-success btn-sm" href="{{ route('sendToModifyActionpoint', ['act_id' => $act->id])}}">Szerkesztés</a>                                
                             </div>
                             <div class="card-footer text-center">
                                 Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
@@ -98,8 +103,9 @@
                                 </thead> 
                             </table>
                            
-                            <div class="card-body">                      
-                                <p class="card-text">{{ $act->description }}</p>                               
+                            <div class="card-body text-center">                      
+                                <p class="card-text">{{ $act->description }}</p>                                
+                                <a class="btn btn-outline-primary btn-sm" href="{{ route('sendToModifyActionpoint', ['act_id' => $act->id])}}">Szerkesztés</a>                                
                             </div>
                             <div class="card-footer text-center">
                                 Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           

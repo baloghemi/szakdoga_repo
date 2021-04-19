@@ -40,7 +40,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class)->withTimestamps();
     }
 
-    //egy felhasználónak több csapatja lehet: 1->n
+    //egy felhasználónak több csapata is lehet: 1->n
     public function owner_teams() {
         return $this->hasMany(Team::class, 'user_id');
     }

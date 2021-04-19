@@ -36,21 +36,7 @@
         </ul>  
 
         <h3>Megbeszélések</h3>
-        <!--
-        <ul class="list-group">
-            @forelse ($teams as $team)              
-                
-                <li class="list-group-item h6">{{ $team->meetings }}</li>               
-                <li class="list-group-item h6">{{ $team->users()->pluck('name') }}</li>               
-                <li class="list-group-item h6">{{ $team->team_owner->name }}</li>               
-
-        <br>
-            @empty  
-                <p>Nincs megjeleníthető csapat!</p>
-            @endforelse
-        </ul>  
-        -->
-
+        
         @forelse ($teams as $team)                
             @if ($team->users()->pluck('name')->contains(Auth::user()->name) or $team->team_owner->name == Auth::user()->name)                
                 @foreach ($all_meet as $meet)

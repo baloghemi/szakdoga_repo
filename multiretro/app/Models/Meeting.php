@@ -13,12 +13,12 @@ class Meeting extends Model
         'name', 'owner', 'meet_date', 'active', 'team_id'
     ];
 
-    //egy megbeszélésnek csak egy tulajdonosa lehet: 1->n
+    //egy megbeszélésnek csak egy tulajdonosa lehet: 1->1
     public function meet_owner() {
         return $this->belongsTo(User::class, 'owner', 'id');
     }
 
-    //egy megbeszélés csak egy csapathoz tartozhat
+    //egy megbeszélés csak egy csapathoz tartozhat: 1->1
     public function team() {
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
