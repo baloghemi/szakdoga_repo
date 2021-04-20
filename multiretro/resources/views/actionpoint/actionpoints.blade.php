@@ -25,7 +25,7 @@
                 <tr>                    
                 <td>            
                 @foreach ($actionpoints as $act)
-                    @if($act->status == "to_do")                    
+                    @if($act->meeting_act->active == 'true' and $act->status == "to_do")                    
                         <div class="card" style="background-color: pink">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
@@ -55,13 +55,13 @@
 
                 <td>          
                 @foreach ($actionpoints as $act)
-                    @if($act->status == "doing")
+                    @if($act->meeting_act->active == 'true' and $act->status == "doing")
                         <div class="card" style="background-color: aquamarine">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
                                     <th scope="col" style="width:15%">
-                                        <a class="btn btn-outline-success btn-sm" style="float: left; a: black;" 
+                                        <a class="btn btn-outline-success btn-sm" style="float: left;" 
                                         href="{{ route('statusChangeLeft', ['act_id' => $act->id]) }}"><</a>
                                     </th>
                                     <th scope="col" style="width:70%">{{ $act->meeting_act->name }}</th>
@@ -88,7 +88,7 @@
 
                 <td>       
                 @foreach ($actionpoints as $act)
-                    @if($act->status == "done")
+                    @if($act->meeting_act->active == 'true' and $act->status == "done")
                         <div class="card" style="background-color: lightSkyBlue">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>

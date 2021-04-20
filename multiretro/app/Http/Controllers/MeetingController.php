@@ -114,5 +114,15 @@ class MeetingController extends Controller
         return redirect()->route('joinMeeting', ['meeting_id' => $action->meeting_id]); 
     }
 
+    //megbeszélés lezárása
+    public function end_meeting($meeting_id) {
+        $meeting = Meeting::where('id', $meeting_id)->firstOrFail(); 
+        
+        $meeting->active = 'false';
+        $meeting->save();
+
+        return redirect()->route('meetings'); 
+    }
+
 
 }

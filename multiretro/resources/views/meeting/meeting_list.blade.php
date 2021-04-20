@@ -7,12 +7,14 @@
         </div> 
 
         @forelse ($meetings as $meeting)
+        @if($meeting->active == 'true')
         <ul class="list-group">
             <li class="list-group-item list-group-item-primary h5">{{ $meeting->name }}</li>
             <li class="list-group-item h5">Létrehozta: {{ $meeting->meet_owner->name }}</li>
             <li class="list-group-item h5">Dátum: {{ \Carbon\Carbon::parse($meeting->meet_date)->format('Y/m/d H:i') }}</li>            
             <li class="list-group-item h5">Csapat: {{ $meeting->team->name }}</li>
         </ul>
+        @endif
         @empty
             <p>Nincs megjeleníthető csapat!</p>
         @endforelse

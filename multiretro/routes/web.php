@@ -5,6 +5,8 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ActionpointController;
 use App\Http\Controllers\DiaryController;
+use App\Http\Controllers\PlusMinusTaskController;
+use App\Http\Controllers\BlogController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -64,10 +66,13 @@ Route::get('/join_meeting/{meeting_id}', [MeetingController::class,'join_meeting
 //megbeszélésen belül akciópont státusz módosítás
 Route::get('/right{act_id}', [MeetingController::class,'status_change_right_meeting'])->name('statusChangeRightMeeting');
 Route::get('/left{act_id}', [MeetingController::class,'status_change_left_meeting'])->name('statusChangeLeftMeeting');
+//megbeszélés lezárása
+Route::get('/meeting_end{meeting_id}', [MeetingController::class,'end_meeting'])->name('endMeeting');
 
 
 
-//AKCIÓPONTOK
+
+//AKCIÓPONT
 Route::get('/actionpoints', [ActionpointController::class,'actionpoints'])->name('actionpoints');
 //csapat listázása
 Route::get('/actionpoint_list', [ActionpointController::class,'actionpoint_list'])->name('actionpointList');
@@ -83,11 +88,31 @@ Route::post('/actionpoints/{act_id}', [ActionpointController::class,'modify_acti
 Route::get('/actionpoint_delete_{act_id}', [ActionpointController::class,'delete_actionpoint'])->name('deleteActionpoint');
 
 
+//PLUSZ-MÍNUSZ FELADAT
+//új plus-mínusz feladat
+Route::get('/new_plus_minus{meeting_id}', [PlusMinusTaskController::class,'new_task'])->name('newPlusMinusTask');
+//pozitív hozzáadás
+Route::get('/add_positive{task_id}', [PlusMinusTaskController::class,'positive_add'])->name('positiveAdd');
+//negatív hozzáadás
+Route::get('/add_negative{task_id}', [PlusMinusTaskController::class,'negative_add'])->name('negativeAdd');
 
-//blogok
-Route::get('/blogs', function () {
-    return view('blogs');
-})->name('blogs');
+
+
+//BLOG
+Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
+//új blog
+Route::get('/new_blog', [BlogController::class,'send_to_new_blog'])->name('sendToNewBlog');
+Route::post('/new_blog', [BlogController::class,'new_blog'])->name('newBlog');
+//blog módosítása
+Route::get('/blogs/{blog_id}', [BlogController::class,'send_to_modify_blog'])->name('sendToModifyBlog');
+Route::post('/blogs/{blog_id}', [BlogController::class,'modify_blog'])->name('modifyBlog');
+//blog listázása
+Route::get('/blog_list', [BlogController::class,'blog_list'])->name('blogList');
+//blog törlése
+Route::get('/delete_blog{blog_id}', [BlogController::class,'delete_blog'])->name('deleteBlog');
+
+
+
 
 //NAPLÓ
 Route::get('/diary', [DiaryController::class,'diary'])->name('diary');

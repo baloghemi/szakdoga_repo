@@ -16,7 +16,7 @@
                                                         {{ $meeting->team->team_owner->name }}</li>
         </ul>
 
-        <!--Idójárás jelentés technika-->
+        <!--Időjárás jelentés technika-->
         <h3>Hangulat - időjárás jelentés</h3>        
 
         <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">
@@ -86,7 +86,7 @@
             </table>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg mt-5 w-50">Időjárás jelentés küldése</button>
+                <button type="submit" class="btn btn-primary btn-lg mt-4 w-50">Időjárás jelentés küldése</button>
             </div>
         </form>
 
@@ -96,6 +96,122 @@
             <div class="card-body">
             </div>
         </div>
+
+        <!--Plusz-mínusz feladat létrehozásának helye-->
+        <div class="card mb-4 mt-4">
+            <h3 class="card-header">Plusz-mínusz kártya létrehozása</h3>
+            <div class="card-body">
+
+            <form action="{{ route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}" method="GET">                      
+                <div>
+                    <label for="description" class="h5">Kártya leírása</label>
+                    <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása"></textarea>
+                    @error('text')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            
+                <h5 class="mt-2">Tulajdonság:</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="0" name="feeling">
+                    <label class="form-check-label" for="feeling">Pozitív</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="1" name="feeling">
+                    <label class="form-check-label" for="feeling">Negatív</label>
+                </div>           
+                
+                <br>
+                <button type="submit" class="btn btn-primary">Mentés</button>            
+
+            </form>            
+            </div>
+        </div>
+
+        <!--Plusz-mínusz feladat tábla-->
+        <h3>Plusz-mínusz tábla</h3>
+        <table class="table table-bordered">
+            <thead class="text-center">
+                <tr>                
+                    <th scope="col" style="width:50%">Pozitív</th>
+                    <th scope="col" style="width:50%">Negatív</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                    
+                <td>            
+                @foreach ($meeting->plus_minus_tasks as $task)
+                    @if($task->feeling == "0")                    
+                        <div class="card" style="background-color: pink">
+                            <table class="card-header card-table table table-borderless text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width:20%">
+                                        {{ $task->positive }}
+                                        <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                        href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                    </th>
+                                    <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
+                                    <th scope="col" style="width:20%">
+                                        {{ $task->negative }}
+                                        <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                        href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                    </th>
+                                </tr>
+                                </thead> 
+                            </table>
+
+                            <div class="card-body">                      
+                                <p class="card-text">{{ $task->text }}</p>                                
+                            </div>
+                            <div class="card-footer text-center">
+                                Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
+                            </div>
+                        </div>
+                    <br>
+                    @endif        
+                @endforeach
+                </td>
+
+                <td>            
+                    @foreach ($meeting->plus_minus_tasks as $task)
+                    @if($task->feeling == "1")                    
+                        <div class="card" style="background-color: lightSkyBlue">
+                            <table class="card-header card-table table table-borderless text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width:20%">
+                                        {{ $task->positive }}
+                                        <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                        href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                    </th>
+                                    <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
+                                    <th scope="col" style="width:20%">
+                                        {{ $task->negative }}
+                                        <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                        href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                    </th>
+                                </tr>
+                                </thead> 
+                            </table>
+
+                            <div class="card-body">                      
+                                <p class="card-text">{{ $task->text }}</p>                                
+                            </div>
+                            <div class="card-footer text-center">
+                                Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
+                            </div>
+                        </div>
+                    <br>
+                    @endif        
+                @endforeach
+                </td>
+                
+                </tr>
+            </tbody>
+        </table>         
         
 
         <!--Akciópontok létrehozásának helye-->        
@@ -238,11 +354,16 @@
                 </tr>
             </tbody>
         </table> 
-
-
-
+        
     </div>
-             
+
+    <!--Megbeszélés lezárása-->
+    @if(Auth::user()->id == $meeting->meet_owner->id)
+        <div class="text-center">
+            <a class="btn btn-outline-danger btn-lg mt-5 w-50" href="{{ route('endMeeting', ['meeting_id' => $meeting->id]) }}">Megbeszélés lezárása</a>
+        </div>
+    @endif
+
     <div class="text-center">
         <a class="btn btn-primary btn-lg mt-5 w-50" href="{{ route('meetings') }}">Vissza</a>
     </div>

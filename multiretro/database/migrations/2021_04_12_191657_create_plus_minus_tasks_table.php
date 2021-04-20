@@ -16,6 +16,7 @@ class CreatePlusMinusTasksTable extends Migration
         Schema::create('plus_minus_tasks', function (Blueprint $table) {
             $table->id();
             $table->text('text');
+            $table->boolean('feeling');
             $table->integer('positive')->default('0');
             $table->integer('negative')->default('0');
             $table->unsignedBigInteger('user_id');

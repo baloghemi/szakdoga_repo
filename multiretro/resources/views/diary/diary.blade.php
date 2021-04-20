@@ -7,6 +7,7 @@
         </div>
 
         @forelse($diaries as $diary)
+            @if($diary->meeting_diary->active == 'false')
             <ul class="list-group">
                 <li class="list-group-item">Megbeszélés: {{ $diary->meeting_diary }}</li>            
                 <li class="list-group-item">Felhasználó: {{ $diary->diary_owner }}</li>
@@ -14,6 +15,7 @@
                                                                Együttműködés: {{ $diary->weather_report['2'] }}
                                                                Közérzet: {{ $diary->weather_report['3'] }}</li>
             </ul>  
+            @endif
         @empty  
             <p>Nincs megjeleníthető napló!</p>
         @endforelse  

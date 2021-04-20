@@ -16,6 +16,7 @@
 
         <ul class="list-group">
             @forelse ($meetings as $meeting)
+            @if($meeting->active == 'true')
                 <li class="list-group-item list-group-item-primary h5">
                     {{ $meeting->name }} <a class="btn btn-outline-primary btn-lg" style="float: right;" 
                                             href="{{ route('joinMeeting', ['meeting_id' => $meeting->id]) }}">
@@ -29,7 +30,8 @@
                     <a class="btn btn-outline-secondary btn-lg" href="{{ route('sendToModifyMeeting', ['meeting_id' => $meeting->id]) }}">Szerkesztés</a>
                     <a class="btn btn-outline-danger btn-lg" href="{{ route('deleteMeeting', ['meeting_id' => $meeting->id]) }}">Törlés</a>
                 </div>
-        <br>
+                <br>
+            @endif
             @empty  
                 <p>Nincs megjeleníthető megbeszélés!</p>
             @endforelse
@@ -39,8 +41,9 @@
         
         @forelse ($teams as $team)                
             @if ($team->users()->pluck('name')->contains(Auth::user()->name) or $team->team_owner->name == Auth::user()->name)                
-                @foreach ($all_meet as $meet)
-                    @if ($team->meetings()->pluck('id')->contains($meet->id) and $meet->meet_owner->name != Auth::user()->name)
+                @foreach ($all_meet as $meet)  
+                    @if ($meet->active == 'true' and $team->meetings()->pluck('id')->contains($meet->id) 
+                        and $meet->meet_owner->name != Auth::user()->name)
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-primary h5">
                             {{ $meet->name }}  <a class="btn btn-outline-primary btn-lg" style="float: right;" 
