@@ -13,7 +13,10 @@
                 Létrehozta: {{ $team->team_owner->name }}
             </li>
             <li class="list-group-item h6">    
-                Tagok: {{ $team->users()->pluck('name') }} 
+                Tagok: 
+                @foreach($team->users as $user)
+                    {{ $user->name }}, 
+                @endforeach 
             </li>
         </ul>
         @empty

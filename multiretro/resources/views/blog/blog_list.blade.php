@@ -18,7 +18,8 @@
                 <div class="text-center">
                     <a class="btn btn-outline-secondary btn-lg" href="{{ route('sendToModifyBlog', ['blog_id' => $blog->id]) }}">Szerkesztés</a>
                     <a class="btn btn-outline-danger btn-lg" href="{{ route('deleteBlog', ['blog_id' => $blog->id]) }}">Törlés</a>
-                </div>     
+                </div>  
+                <br>   
             @empty
                 <p>Nincs megjeleníthető blog!</p>
             @endforelse

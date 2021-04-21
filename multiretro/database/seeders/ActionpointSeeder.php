@@ -36,6 +36,7 @@ class ActionpointSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        //MEETING 2
         DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 3.',
             'act_date' => Carbon::create('2020', '02', '01', '9', '15'),
@@ -54,10 +55,10 @@ class ActionpointSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        //OTHER MEETINGS
+        
         DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 5.',
+            'status' => 'done',
             'act_date' => Carbon::create('2020', '02', '01', '9', '41'),
             'user_id' => '1',
             'meeting_id' => '2',
@@ -65,6 +66,7 @@ class ActionpointSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        //MEETING 3
         DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 6.',
             'act_date' => Carbon::create('2020', '03', '01', '12', '59'),
@@ -75,6 +77,17 @@ class ActionpointSeeder extends Seeder
         ]);
 
         DB::table('actionpoints')->insert([
+            'description' => 'This is the description of Test Actionpoint 8.',
+            'status' => 'doing',
+            'act_date' => Carbon::create('2020', '03', '01', '13', '21'),
+            'user_id' => '4',
+            'meeting_id' => '3',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        //MEETING 4
+        DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 7.',
             'act_date' => Carbon::create('2020', '04', '01', '13', '36'),
             'user_id' => '1',
@@ -83,17 +96,10 @@ class ActionpointSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        DB::table('actionpoints')->insert([
-            'description' => 'This is the description of Test Actionpoint 8.',
-            'act_date' => Carbon::create('2020', '03', '01', '13', '21'),
-            'user_id' => '4',
-            'meeting_id' => '3',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
+        //MEETING 5
         DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 9.',
+            'status' => 'doing',
             'act_date' => Carbon::create('2020', '05', '01', '16', '11'),
             'user_id' => '2',
             'meeting_id' => '5',
@@ -103,6 +109,7 @@ class ActionpointSeeder extends Seeder
 
         DB::table('actionpoints')->insert([
             'description' => 'This is the description of Test Actionpoint 10.',
+            'status' => 'done',
             'act_date' => Carbon::create('2020', '05', '01', '16', '36'),
             'user_id' => '7',
             'meeting_id' => '5',

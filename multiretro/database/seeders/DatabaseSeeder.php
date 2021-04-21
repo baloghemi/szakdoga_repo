@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UserTeamSeeder::class,
             MeetingSeeder::class,
             ActionpointSeeder::class,
+            PlusMinusTaskSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

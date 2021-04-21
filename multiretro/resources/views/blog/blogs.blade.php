@@ -17,7 +17,7 @@
                     <li class="list-group-item h5">Létrehozta: {{ $blog->blog_owner->name }}</li>
                     <li class="list-group-item h5">Módosítva: {{ \Carbon\Carbon::parse($blog->updated_at)->format('Y/m/d H:i') }}</li>            
                     <li class="list-group-item h5">Szöveg: {{ $blog->text }}</li>
-                    <li class="list-group-item h5">Szöveg: {{ $blog->tags }}</li>
+                    <li class="list-group-item h5">Címkék: {{ $blog->tags }}</li>
                 </ul>        
             @empty
                 <p>Nincs megjeleníthető blog!</p>

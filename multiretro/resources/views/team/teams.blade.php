@@ -20,7 +20,10 @@
         <ul class="list-group">            
             <li class="list-group-item list-group-item-primary h5">{{ $team->name }}</li>
             <li class="list-group-item h6">    
-                Tagok: {{ $team->users()->pluck('name') }} 
+                Tagok: 
+                @foreach($tag->users as $user)
+                    {{ $user->name }}, 
+                @endforeach 
             </li>
         </ul>
 
@@ -43,7 +46,10 @@
                     Létrehozta: {{ $tag->team_owner->name }}
                 </li>
                 <li class="list-group-item h6">    
-                    Tagok: {{ $tag->users()->pluck('name') }} 
+                    Tagok: 
+                    @foreach($tag->users as $user)
+                        {{ $user->name }}, 
+                    @endforeach
                 </li>
             </ul>
         @empty        

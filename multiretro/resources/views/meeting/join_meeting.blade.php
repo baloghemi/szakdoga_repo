@@ -12,14 +12,24 @@
             <li class="list-group-item h6">A megbeszélést létrehozta: {{ $meeting->meet_owner->name }}</li>
             <li class="list-group-item h6">Dátum: {{ \Carbon\Carbon::parse($meeting->meet_date)->format('Y/m/d H:i') }}</li>            
             <li class="list-group-item h6">Csapat: {{ $meeting->team->name }}</li>
-            <li class="list-group-item h6">Csapattagok: {{ $meeting->team->users()->pluck('name') }}, 
-                                                        {{ $meeting->team->team_owner->name }}</li>
+            <li class="list-group-item h6">
+                Csapattagok: 
+                {{ $meeting->team->team_owner->name }},
+                @foreach($meeting->team->users as $user)
+                    {{ $user->name }}, 
+                @endforeach
+            </li>
         </ul>
 
         <!--Időjárás jelentés technika-->
-        <h3>Hangulat - időjárás jelentés</h3>        
+        <h3>Hangulat - időjárás jelentés</h3>   
+        <?php 
+            use App\Models\Diary;
+            $diary = Diary::where('user_id', Auth::user()->id)->where('meeting_id', $meeting->id)->first();            
+            $weather_report = isset($diary) ? $diary->weather_report : null;            
+        ?>     
 
-        <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">
+        <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">        
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -38,64 +48,82 @@
                     <tr>
                     <th scope="row" class="radio">Teljesítmény</th>
                         <td class="text-center">
-                            <input type="radio" value="1" name="performance">                            
+                            <input type="radio" value="1" name="performance"                            
+                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '1' ? "checked" : old('performance')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="2" name="performance">
+                            <input type="radio" value="2" name="performance"
+                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '2' ? "checked" : old('performance')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="3" name="performance">
+                            <input type="radio" value="3" name="performance"
+                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '3' ? "checked" : old('performance')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="4" name="performance">
+                            <input type="radio" value="4" name="performance"
+                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '4' ? "checked" : old('performance')}}>
                         </td>
                     </tr>
 
                     <tr>
                     <th scope="row" class="radio">Együttműködés</th>
                         <td class="text-center">
-                            <input type="radio" value="1" name="collaboration"> 
+                            <input type="radio" value="1" name="collaboration"
+                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '1' ? "checked" : old('collaboration')}}> 
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="2" name="collaboration">
+                            <input type="radio" value="2" name="collaboration"
+                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '2' ? "checked" : old('collaboration')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="3" name="collaboration">
+                            <input type="radio" value="3" name="collaboration"
+                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '3' ? "checked" : old('collaboration')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="4" name="collaboration">
+                            <input type="radio" value="4" name="collaboration"
+                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '4' ? "checked" : old('collaboration')}}>
                         </td>
                     </tr>
 
                     <tr>
                     <th scope="row" class="radio">Közérzet</th>
                         <td class="text-center">
-                            <input type="radio" value="1" name="feeling">
+                            <input type="radio" value="1" name="feeling"
+                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '1' ? "checked" : old('feeling')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="2" name="feeling">
+                            <input type="radio" value="2" name="feeling"
+                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '2' ? "checked" : old('feeling')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="3" name="feeling">
+                            <input type="radio" value="3" name="feeling"
+                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '3' ? "checked" : old('feeling')}}>
                         </td>
                         <td class="text-center">
-                            <input type="radio" value="4" name="feeling">
+                            <input type="radio" value="4" name="feeling"
+                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '4' ? "checked" : old('feeling')}}>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg mt-4 w-50">Időjárás jelentés küldése</button>
-            </div>
+            @if(!isset($weather_report))
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg mt-4 w-50">Időjárás jelentés küldése</button>
+                </div>
+            @endif
         </form>
 
-        <!--Idójárás jelentés eredmények átlaga-->
-        <h3>Eredmények:</h3>
+        <!--Időjárás jelentés eredmények átlaga-->
+        @if(isset($weather_report))
         <div class="card">
+            <h3 class="card-header">Eredmények:</h3>
             <div class="card-body">
+                <h5>Saját átlag: {{ weather_average($weather_report) }}</h5>
+                <h5>Csapat átlag: {{ weather_sum_average($meeting->diaries) }}</h5>
             </div>
-        </div>
+            </div>
+        @endif
 
         <!--Plusz-mínusz feladat létrehozásának helye-->
         <div class="card mb-4 mt-4">

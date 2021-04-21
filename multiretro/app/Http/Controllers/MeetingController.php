@@ -78,7 +78,8 @@ class MeetingController extends Controller
 
     //megnyitás
     public function join_meeting($meeting_id) {
-        $meeting = Meeting::where('id', $meeting_id)->firstOrFail();
+        $meeting = Meeting::where('id', $meeting_id)->firstOrFail();        
+
         return view('meeting.join_meeting')->with('meeting', $meeting);
     }
 
