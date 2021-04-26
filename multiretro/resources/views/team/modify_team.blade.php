@@ -19,7 +19,6 @@
 
         <div>
             <h4>Választható csapattagok:</h4>
-
             @foreach ($users as $user)
             @if ($user->id != Auth::user()->id)
                 <div class="form-check">
@@ -28,10 +27,8 @@
                         <label class="form-check-label" for="people{{$user->id}}">{{ $user->name }}</label>
                 </div>
             @endif
-            @endforeach   
-                    
+            @endforeach  
         </div>
-
 
         <br>
         <button type="submit" class="btn btn-primary">Mentés</button>

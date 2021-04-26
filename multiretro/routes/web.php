@@ -110,6 +110,9 @@ Route::post('/blogs/{blog_id}', [BlogController::class,'modify_blog'])->name('mo
 Route::get('/blog_list', [BlogController::class,'blog_list'])->name('blogList');
 //blog törlése
 Route::get('/delete_blog{blog_id}', [BlogController::class,'delete_blog'])->name('deleteBlog');
+//blog keresés
+Route::get('/blog_search', [BlogController::class,'blog_search'])->name('blogSearch');
+
 
 
 
@@ -118,5 +121,7 @@ Route::get('/delete_blog{blog_id}', [BlogController::class,'delete_blog'])->name
 Route::get('/diary', [DiaryController::class,'diary'])->name('diary');
 //időjárás jelentés
 Route::get('/diary/weather_report{meeting_id}', [DiaryController::class,'weather_report'])->name('weatherReport');
+//űrlap
+Route::get('/diary/form{meeting_id}', [DiaryController::class,'form'])->name('form');
 
 

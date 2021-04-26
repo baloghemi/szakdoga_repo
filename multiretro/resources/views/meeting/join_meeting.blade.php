@@ -22,225 +22,321 @@
         </ul>
 
         <!--Időjárás jelentés technika-->
-        <h3>Hangulat - időjárás jelentés</h3>   
         <?php 
             use App\Models\Diary;
             $diary = Diary::where('user_id', Auth::user()->id)->where('meeting_id', $meeting->id)->first();            
             $weather_report = isset($diary) ? $diary->weather_report : null;            
+            $form = isset($diary) ? $diary->form : null;            
         ?>     
 
-        <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">        
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col" class="text-center">
-                        <img src="{{asset('img/sunny.png')}}" class="img-fluid" alt="sunny"></th>
-                    <th scope="col" class="text-center">
-                        <img src="{{asset('img/cloudy.png')}}" class="img-fluid" alt="cloudy"></th>
-                    <th scope="col" class="text-center">
-                        <img src="{{asset('img/rainy.png')}}" class="img-fluid" alt="rainy"></th>
-                    <th scope="col" class="text-center">
-                        <img src="{{asset('img/stormy.png')}}" class="img-fluid" alt="stormy"></th>
-                </tr>
-            </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row" class="radio">Teljesítmény</th>
-                        <td class="text-center">
-                            <input type="radio" value="1" name="performance"                            
-                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '1' ? "checked" : old('performance')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="2" name="performance"
-                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '2' ? "checked" : old('performance')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="3" name="performance"
-                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '3' ? "checked" : old('performance')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="4" name="performance"
-                            {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '4' ? "checked" : old('performance')}}>
-                        </td>
-                    </tr>
+        @if($meeting->techniques['0'] == '1')
+            <h3>Hangulat - időjárás jelentés</h3>   
 
+            <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">        
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                    <th scope="row" class="radio">Együttműködés</th>
-                        <td class="text-center">
-                            <input type="radio" value="1" name="collaboration"
-                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '1' ? "checked" : old('collaboration')}}> 
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="2" name="collaboration"
-                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '2' ? "checked" : old('collaboration')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="3" name="collaboration"
-                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '3' ? "checked" : old('collaboration')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="4" name="collaboration"
-                            {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '4' ? "checked" : old('collaboration')}}>
-                        </td>
+                        <th scope="col"></th>
+                        <th scope="col" class="text-center">
+                            <img src="{{asset('img/sunny.png')}}" class="img-fluid" alt="sunny"></th>
+                        <th scope="col" class="text-center">
+                            <img src="{{asset('img/cloudy.png')}}" class="img-fluid" alt="cloudy"></th>
+                        <th scope="col" class="text-center">
+                            <img src="{{asset('img/rainy.png')}}" class="img-fluid" alt="rainy"></th>
+                        <th scope="col" class="text-center">
+                            <img src="{{asset('img/stormy.png')}}" class="img-fluid" alt="stormy"></th>
                     </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row" class="radio">Teljesítmény</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="performance"                            
+                                {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '1' ? "checked" : old('performance')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="performance"
+                                {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '2' ? "checked" : old('performance')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="performance"
+                                {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '3' ? "checked" : old('performance')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="performance"
+                                {{is_null(old('performance')) && isset($weather_report) && $weather_report['1'] == '4' ? "checked" : old('performance')}}>
+                            </td>
+                        </tr>
 
-                    <tr>
-                    <th scope="row" class="radio">Közérzet</th>
-                        <td class="text-center">
-                            <input type="radio" value="1" name="feeling"
-                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '1' ? "checked" : old('feeling')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="2" name="feeling"
-                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '2' ? "checked" : old('feeling')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="3" name="feeling"
-                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '3' ? "checked" : old('feeling')}}>
-                        </td>
-                        <td class="text-center">
-                            <input type="radio" value="4" name="feeling"
-                            {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '4' ? "checked" : old('feeling')}}>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr>
+                        <th scope="row" class="radio">Együttműködés</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="collaboration"
+                                {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '1' ? "checked" : old('collaboration')}}> 
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="collaboration"
+                                {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '2' ? "checked" : old('collaboration')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="collaboration"
+                                {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '3' ? "checked" : old('collaboration')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="collaboration"
+                                {{is_null(old('collaboration')) && isset($weather_report) && $weather_report['2'] == '4' ? "checked" : old('collaboration')}}>
+                            </td>
+                        </tr>
 
-            @if(!isset($weather_report))
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg mt-4 w-50">Időjárás jelentés küldése</button>
+                        <tr>
+                        <th scope="row" class="radio">Közérzet</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="feeling"
+                                {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '1' ? "checked" : old('feeling')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="feeling"
+                                {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '2' ? "checked" : old('feeling')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="feeling"
+                                {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '3' ? "checked" : old('feeling')}}>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="feeling"
+                                {{is_null(old('feeling')) && isset($weather_report) && $weather_report['3'] == '4' ? "checked" : old('feeling')}}>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                @if(!isset($weather_report))
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg mt-4 w-50">Időjárás jelentés küldése</button>
+                    </div>
+                @endif
+            </form>
+
+            <!--Időjárás jelentés eredmények átlaga-->
+            @if(isset($weather_report))
+            <div class="card">
+                <h3 class="card-header">Eredmények:</h3>
+                <div class="card-body">
+                    <h5>Saját átlag: {{ weather_average($weather_report) }}</h5>
+                    <h5>Csapat átlag: {{ weather_sum_average($meeting->diaries) }}</h5>
+                </div>
                 </div>
             @endif
-        </form>
-
-        <!--Időjárás jelentés eredmények átlaga-->
-        @if(isset($weather_report))
-        <div class="card">
-            <h3 class="card-header">Eredmények:</h3>
-            <div class="card-body">
-                <h5>Saját átlag: {{ weather_average($weather_report) }}</h5>
-                <h5>Csapat átlag: {{ weather_sum_average($meeting->diaries) }}</h5>
-            </div>
-            </div>
         @endif
 
-        <!--Plusz-mínusz feladat létrehozásának helye-->
-        <div class="card mb-4 mt-4">
-            <h3 class="card-header">Plusz-mínusz kártya létrehozása</h3>
-            <div class="card-body">
 
-            <form action="{{ route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}" method="GET">                      
-                <div>
-                    <label for="description" class="h5">Kártya leírása</label>
-                    <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása"></textarea>
-                    @error('text')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            
-                <h5 class="mt-2">Tulajdonság:</h5>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" value="0" name="feeling">
-                    <label class="form-check-label" for="feeling">Pozitív</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" value="1" name="feeling">
-                    <label class="form-check-label" for="feeling">Negatív</label>
-                </div>           
+        @if($meeting->techniques['1'] == '1')
+            <!--Plusz-mínusz feladat létrehozásának helye-->
+            <div class="card mb-4 mt-4">
+                <h3 class="card-header">Plusz-mínusz kártya létrehozása</h3>
+                <div class="card-body">
+
+                <form action="{{ route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}" method="GET">                      
+                    <div>
+                        <label for="description" class="h5">Kártya leírása</label>
+                        <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása"></textarea>
+                        @error('text')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 
-                <br>
-                <button type="submit" class="btn btn-primary">Mentés</button>            
+                    <h5 class="mt-2">Tulajdonság:</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="0" name="feeling">
+                        <label class="form-check-label" for="feeling">Pozitív</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="1" name="feeling">
+                        <label class="form-check-label" for="feeling">Negatív</label>
+                    </div>           
+                    
+                    <br>
+                    <button type="submit" class="btn btn-primary">Mentés</button>            
 
-            </form>            
+                </form>            
+                </div>
             </div>
-        </div>
 
-        <!--Plusz-mínusz feladat tábla-->
-        <h3>Plusz-mínusz tábla</h3>
-        <table class="table table-bordered">
-            <thead class="text-center">
-                <tr>                
-                    <th scope="col" style="width:50%">Pozitív</th>
-                    <th scope="col" style="width:50%">Negatív</th>                   
-                </tr>
-            </thead>
-            <tbody>
-                <tr>                    
-                <td>            
-                @foreach ($meeting->plus_minus_tasks as $task)
-                    @if($task->feeling == "0")                    
-                        <div class="card" style="background-color: pink">
-                            <table class="card-header card-table table table-borderless text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col" style="width:20%">
-                                        {{ $task->positive }}
-                                        <a class="btn btn-outline-danger btn-sm" style="float: left;"
-                                        href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
-                                    </th>
-                                    <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
-                                    <th scope="col" style="width:20%">
-                                        {{ $task->negative }}
-                                        <a class="btn btn-outline-primary btn-sm" style="float: right;" 
-                                        href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
-                                    </th>
-                                </tr>
-                                </thead> 
-                            </table>
-
-                            <div class="card-body">                      
-                                <p class="card-text">{{ $task->text }}</p>                                
-                            </div>
-                            <div class="card-footer text-center">
-                                Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
-                            </div>
-                        </div>
-                    <br>
-                    @endif        
-                @endforeach
-                </td>
-
-                <td>            
+            <!--Plusz-mínusz feladat tábla-->
+            <h3>Plusz-mínusz tábla</h3>
+            <table class="table table-bordered">
+                <thead class="text-center">
+                    <tr>                
+                        <th scope="col" style="width:50%">Pozitív</th>
+                        <th scope="col" style="width:50%">Negatív</th>                   
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>                    
+                    <td>            
                     @foreach ($meeting->plus_minus_tasks as $task)
-                    @if($task->feeling == "1")                    
-                        <div class="card" style="background-color: lightSkyBlue">
-                            <table class="card-header card-table table table-borderless text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col" style="width:20%">
-                                        {{ $task->positive }}
-                                        <a class="btn btn-outline-danger btn-sm" style="float: left;"
-                                        href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
-                                    </th>
-                                    <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
-                                    <th scope="col" style="width:20%">
-                                        {{ $task->negative }}
-                                        <a class="btn btn-outline-primary btn-sm" style="float: right;" 
-                                        href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
-                                    </th>
-                                </tr>
-                                </thead> 
-                            </table>
+                        @if($task->feeling == "0")                    
+                            <div class="card" style="background-color: pink">
+                                <table class="card-header card-table table table-borderless text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="width:20%">
+                                            {{ $task->positive }}
+                                            <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                            href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                        </th>
+                                        <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
+                                        <th scope="col" style="width:20%">
+                                            {{ $task->negative }}
+                                            <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                            href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                        </th>
+                                    </tr>
+                                    </thead> 
+                                </table>
 
-                            <div class="card-body">                      
-                                <p class="card-text">{{ $task->text }}</p>                                
+                                <div class="card-body">                      
+                                    <p class="card-text">{{ $task->text }}</p>                                
+                                </div>
+                                <div class="card-footer text-center">
+                                    Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
+                                </div>
                             </div>
-                            <div class="card-footer text-center">
-                                Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
+                        <br>
+                        @endif        
+                    @endforeach
+                    </td>
+
+                    <td>            
+                        @foreach ($meeting->plus_minus_tasks as $task)
+                        @if($task->feeling == "1")                    
+                            <div class="card" style="background-color: lightSkyBlue">
+                                <table class="card-header card-table table table-borderless text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="width:20%">
+                                            {{ $task->positive }}
+                                            <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                            href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                        </th>
+                                        <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
+                                        <th scope="col" style="width:20%">
+                                            {{ $task->negative }}
+                                            <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                            href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                        </th>
+                                    </tr>
+                                    </thead> 
+                                </table>
+
+                                <div class="card-body">                      
+                                    <p class="card-text">{{ $task->text }}</p>                                
+                                </div>
+                                <div class="card-footer text-center">
+                                    Létrehozva: {{ \Carbon\Carbon::parse($task->created_at)->format('Y/m/d H:i') }}           
+                                </div>
                             </div>
-                        </div>
-                    <br>
-                    @endif        
-                @endforeach
-                </td>
-                
-                </tr>
-            </tbody>
-        </table>         
-        
+                        <br>
+                        @endif        
+                    @endforeach
+                    </td>
+                    
+                    </tr>
+                </tbody>
+            </table>         
+        @endif
+
+        @if($meeting->techniques['2'] == '1' and !(isset($form)))
+            <!--Űrlap technika-->
+            <h3>Űrlap - Csapatban való készségek felmérése</h3>
+            <h5>Mennyire vagy elégedett a következőkkel a csapatban? (1 - Egyáltalán nem, 3 - Teljes mértékben)</h5>
+
+            <form action="{{ route('form', ['meeting_id' => $meeting->id]) }}" method="GET">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="text-center">1</th>
+                        <th scope="col" class="text-center">2</th>
+                        <th scope="col" class="text-center">3</th>                        
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row" class="radio">Kommunikáció</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="communication">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="communication">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="communication">
+                            </td>                            
+                        </tr>
+
+                        <tr>
+                        <th scope="row" class="radio">Egymás segítése, támogatása</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="help"> 
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="help">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="help">
+                            </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row" class="radio">Tisztelet</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="respect">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="respect">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="respect">
+                            </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row" class="radio">Tehermegosztás</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="share">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="share">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="share">
+                            </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row" class="radio">Munkavégzés sebessége</th>
+                            <td class="text-center">
+                                <input type="radio" value="1" name="speed">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="2" name="speed">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="3" name="speed">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>                              
+                    
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg mt-1 w-50">Űrlap beküldése</button>
+                </div>              
+            </form>
+        @endif
 
         <!--Akciópontok létrehozásának helye-->        
         <div class="card mb-4 mt-4">

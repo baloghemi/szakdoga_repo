@@ -19,7 +19,7 @@
 
         <div>
             <label for="meet_date">Dátum</label>
-            <input type="datetime-local" class="form-control @error('meet_date') is-invalid @enderror" name="meet_date" id="meet_date" value="{{ is_null(old('meet_date')) && isset($meeting) ? $meeting->meet_date : old('meet_date') }}">
+            <input type="datetime-local" class="form-control @error('meet_date') is-invalid @enderror" name="meet_date" id="meet_date" value="{{ is_null(old('meet_date')) && isset($meeting) ?  date('Y-m-d\TH:i', strtotime($meeting->meet_date)) : old('meet_date') }}">
             @error('meet_date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -32,16 +32,37 @@
         <div>
             <h4>Választható csapatok:</h4>
 
-            @foreach ($teams as $team)
-            
+            @foreach ($teams as $team)            
                 <div class="form-check">
                     <input class="form-check-input" type="radio" value="{{$team->id}}" name="team"
                     {{is_null(old('team')) && isset($meeting) && $meeting->team->id == $team->id ? "checked" : old('team')}}>
                     <label class="form-check-label" for="team">{{ $team->name }}</label>
-                </div>
-           
-            @endforeach   
-                    
+                </div>           
+            @endforeach 
+        </div>
+
+        <div>
+            <h4>Választható technikák:</h4>
+            
+            <div class="form-check">
+                <input type="hidden" name="report" value="0">
+                <input class="form-check-input" type="checkbox" value="1" name="report"                         
+                {{is_null(old('technic')) && isset($meeting) && ($meeting->techniques['0'] == '1') ? "checked" : old('technic')}}>
+                <label class="form-check-label" for="report">Időjárás jelentés</label>
+            </div>
+            <div class="form-check">
+                <input type="hidden" name="plus_minus" value="0">
+                <input class="form-check-input" type="checkbox" value="1" name="plus_minus"                         
+                {{is_null(old('technic')) && isset($meeting) && ($meeting->techniques['1'] == '1')  ? "checked" : old('technic')}}>
+                <label class="form-check-label" for="plus_minus">Plusz-mínusz tábla</label>
+            </div>
+            <div class="form-check">
+                <input type="hidden" name="form" value="0">
+                <input class="form-check-input" type="checkbox" value="1" name="form"                         
+                {{is_null(old('technic')) && isset($meeting) && ($meeting->techniques['2'] == '1')  ? "checked" : old('technic')}}>
+                <label class="form-check-label" for="form">Űrlap</label>
+            </div>
+             
         </div>
 
 

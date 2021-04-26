@@ -14,7 +14,7 @@ class Diary extends Model
     ];
     
     protected $casts = [
-        'weather_report' => 'array', //számokban menteni le ->átlagokhoz
+        'weather_report' => 'array', //számokban menteni le -> átlagokhoz
         'plus_minus'     => 'array',
         'kanban'         => 'array',
         'form'           => 'array', //kulcs-érték párok

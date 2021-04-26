@@ -36,6 +36,12 @@ class MeetingController extends Controller
         $meeting->name = $request->input('name');
         $meeting->meet_date = $request->input('meet_date');
         $meeting->team_id = $request->input('team');
+
+        $techniques = $meeting->techniques;
+        $techniques['0'] = $request->input('report');        
+        $techniques['1'] = $request->input('plus_minus');        
+        $techniques['2'] = $request->input('form');        
+        $meeting->techniques = $techniques;
                 
         $request->user()->owner_meetings()->save($meeting);
         
@@ -56,6 +62,12 @@ class MeetingController extends Controller
         ]);
         $meeting->update($validated);
         $meeting->team_id = $request->input('team');
+
+        $techniques = $meeting->techniques;
+        $techniques['0'] = $request->input('report');        
+        $techniques['1'] = $request->input('plus_minus');        
+        $techniques['2'] = $request->input('form');  
+        $meeting->techniques = $techniques;        
          
         $rec = $request->user()->owner_meetings()->save($meeting);       
 

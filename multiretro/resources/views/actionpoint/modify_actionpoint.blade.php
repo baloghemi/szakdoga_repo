@@ -11,7 +11,7 @@
             <form action="{{ route('modifyActionpoint', ['act_id' => $action->id]) }}" method="POST">  
                 @csrf                    
                 <div>
-                    <label for="description" class="h5">Akciópont leírása</label>
+                <label for="description" class="h5">Akciópont leírása</label>
                 <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása">{{ $action->description }}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">

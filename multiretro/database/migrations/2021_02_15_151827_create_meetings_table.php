@@ -18,6 +18,7 @@ class CreateMeetingsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('owner'); 
             $table->date('meet_date');
+            $table->json('techniques')->nullable();
             $table->boolean('active')->default('true');
             $table->unsignedBigInteger('team_id');
             $table->timestamps();

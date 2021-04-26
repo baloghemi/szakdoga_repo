@@ -28,9 +28,29 @@
         </div>
 
         <div>
-            <label for="tags">Címkék</label>
-            <input type="text" class="form-control @error('tags') is-invalid @enderror" name="tags" id="tags" placeholder="Címkék vesszővel elválasztva szóköz nélkül" value="{{ is_null(old('tags')) && isset($blog) ? $blog->tags : old('tags') }}">
-            @error('tags')
+            <label for="tag1">Címke 1</label>
+            <input type="text" class="form-control @error('tag1') is-invalid @enderror" name="tag1" id="tag1" placeholder="Első címke" value="{{ is_null(old('tag1')) && isset($blog) ? $blog->tag1 : old('tag1') }}">
+            @error('tag1')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div>
+            <label for="tag2">Címke 2</label>
+            <input type="text" class="form-control @error('tag2') is-invalid @enderror" name="tag2" id="tag2" placeholder="Második címke" value="{{ is_null(old('tag2')) && isset($blog) ? $blog->tag2 : old('tag2') }}">
+            @error('tag2')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div>
+            <label for="tag3">Címke 3</label>
+            <input type="text" class="form-control @error('tag3') is-invalid @enderror" name="tag3" id="tag3" placeholder="Harmadik címke" value="{{ is_null(old('tag3')) && isset($blog) ? $blog->tag3 : old('tag3') }}">
+            @error('tag3')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

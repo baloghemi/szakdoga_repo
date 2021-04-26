@@ -75,4 +75,13 @@ class BlogController extends Controller
         return redirect()->route('blogList'); 
     }
 
+    //blog keresése
+    public function blog_search(Request $request) {
+        $search = $request->input('tag');
+
+        $blogs = Blog::where('tag1', $search)->orWhere('tag2', $search)->orWhere('tag3', $search)->get();
+
+        return view('blog.blogs', ['blogs' => $blogs]);
+    }
+
 }

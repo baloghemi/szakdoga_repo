@@ -17,7 +17,9 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('text'); 
-            $table->json('tags');
+            $table->string('tag1');
+            $table->string('tag2')->nullable();
+            $table->string('tag3')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

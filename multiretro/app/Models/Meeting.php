@@ -10,7 +10,11 @@ class Meeting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'owner', 'meet_date', 'active', 'team_id'
+        'name', 'owner', 'meet_date', 'techniques', 'active', 'team_id'
+    ];
+
+    protected $casts = [
+        'techniques' => 'array',
     ];
 
     //egy megbeszélésnek csak egy tulajdonosa lehet: 1->1

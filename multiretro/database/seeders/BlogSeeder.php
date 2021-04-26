@@ -17,7 +17,9 @@ class BlogSeeder extends Seeder
         DB::table('blogs')->insert([
             'title' => 'Test Blog 1',
             'text' => 'This is the text of Test Blog 1.',  
-            'tags' => 'test,blog,tag1',
+            'tag1' => 'test',
+            'tag2' => 'blog',
+            'tag3' => 'tag1',            
             'user_id' => '1',
             'created_at' => now(),
             'updated_at' => now(),
@@ -25,8 +27,10 @@ class BlogSeeder extends Seeder
 
         DB::table('blogs')->insert([
             'title' => 'Test Blog 2',
-            'text' => 'This is the text of Test Blog 2.',  
-            'tags' => 'test,blog,tag1',
+            'text' => 'This is the text of Test Blog 2.', 
+            'tag1' => 'test',
+            'tag2' => 'blog',
+            'tag3' => 'tag1', 
             'user_id' => '1',
             'created_at' => now(),
             'updated_at' => now(),
@@ -34,8 +38,10 @@ class BlogSeeder extends Seeder
 
         DB::table('blogs')->insert([
             'title' => 'Test Blog 3',
-            'text' => 'This is the text of Test Blog 3.',  
-            'tags' => 'test,blog,tag2',
+            'text' => 'This is the text of Test Blog 3.', 
+            'tag1' => 'test',
+            'tag2' => 'blog',
+            'tag3' => 'tag2',
             'user_id' => '2',
             'created_at' => now(),
             'updated_at' => now(),
@@ -44,7 +50,9 @@ class BlogSeeder extends Seeder
         DB::table('blogs')->insert([
             'title' => 'Test Blog 4',
             'text' => 'This is the text of Test Blog 4.',  
-            'tags' => 'test,blog,tag2',
+            'tag1' => 'test',
+            'tag2' => 'blog',
+            'tag3' => 'tag2',
             'user_id' => '4',
             'created_at' => now(),
             'updated_at' => now(),
@@ -52,8 +60,10 @@ class BlogSeeder extends Seeder
 
         DB::table('blogs')->insert([
             'title' => 'Test Blog 5',
-            'text' => 'This is the text of Test Blog 5.',  
-            'tags' => 'test,blog,tag1',
+            'text' => 'This is the text of Test Blog 5.', 
+            'tag1' => 'test',
+            'tag2' => 'blog',
+            'tag3' => 'tag1',
             'user_id' => '6',
             'created_at' => now(),
             'updated_at' => now(),
