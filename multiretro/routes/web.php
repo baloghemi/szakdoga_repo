@@ -27,13 +27,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//kezdőlap
 Route::view('/home', 'profile.userprofile')->middleware('auth');
+
 
 //PROFIL
 Route::get('/userprofile', [UserProfileController::class,'profile'])->name('userProfile');
 //profil módosítása
 Route::get('/userprofile/{user_id}', [UserProfileController::class, 'send_to_modify'])->name('sendToModifyUser');
 Route::post('/userprofile/{user_id}', [UserProfileController::class, 'modify_profile'])->name('modifyUserProfile');
+
+
 
 //CSAPATOK
 Route::get('/teams', [TeamController::class,'teams'])->name('teams');
@@ -47,6 +51,7 @@ Route::post('/teams/{team_id}', [TeamController::class,'modify_team'])->name('mo
 Route::get('/team_list', [TeamController::class,'team_list'])->name('teamList');
 //csapat törlése
 Route::get('/team_list/{team_id}', [TeamController::class,'delete_team'])->name('deleteTeam');
+
 
 
 //MEGBESZÉLÉS
@@ -68,7 +73,6 @@ Route::get('/right{act_id}', [MeetingController::class,'status_change_right_meet
 Route::get('/left{act_id}', [MeetingController::class,'status_change_left_meeting'])->name('statusChangeLeftMeeting');
 //megbeszélés lezárása
 Route::get('/meeting_end{meeting_id}', [MeetingController::class,'end_meeting'])->name('endMeeting');
-
 
 
 
@@ -115,13 +119,15 @@ Route::get('/blog_search', [BlogController::class,'blog_search'])->name('blogSea
 
 
 
-
-
 //NAPLÓ
 Route::get('/diary', [DiaryController::class,'diary'])->name('diary');
 //időjárás jelentés
 Route::get('/diary/weather_report{meeting_id}', [DiaryController::class,'weather_report'])->name('weatherReport');
 //űrlap
 Route::get('/diary/form{meeting_id}', [DiaryController::class,'form'])->name('form');
+//csapat naplózása
+Route::get('/team_diary{team_id}', [DiaryController::class,'team_diary'])->name('teamDiary');
+//megbeszélés naplózása
+Route::get('/meeting_diary{meeting_id}', [DiaryController::class,'meeting_diary'])->name('meetingDiary');
 
 

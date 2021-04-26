@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Meeting;
+use App\Models\Team;
 use App\Models\Diary;
 
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class DiaryController extends Controller
 {
     public function diary() {
-        return view('diary.diary', ['diaries' => Diary::all()]);
+        return view('diary.diary', ['diaries' => Diary::all(), 'teams' => Team::all(), 'meetings' => Meeting::all()]);
     }
 
     //időjárás jelentés mentés
@@ -25,9 +26,9 @@ class DiaryController extends Controller
         } 
         
         $weather_report = $diary->weather_report;
-        $weather_report['1'] = $request->input('performance');
-        $weather_report['2'] = $request->input('collaboration');
-        $weather_report['3'] = $request->input('feeling');
+        $weather_report['0'] = $request->input('performance');
+        $weather_report['1'] = $request->input('collaboration');
+        $weather_report['2'] = $request->input('feeling');
         $diary->weather_report = $weather_report;
 
         $request->user()->owner_diaries()->save($diary);        
@@ -45,15 +46,27 @@ class DiaryController extends Controller
         } 
 
         $form = $diary->form;
-        $form['1'] = $request->input('communication');
-        $form['2'] = $request->input('help');
-        $form['3'] = $request->input('respect');
-        $form['4'] = $request->input('share');
-        $form['5'] = $request->input('speed');
+        $form['0'] = $request->input('communication');
+        $form['1'] = $request->input('help');
+        $form['2'] = $request->input('respect');
+        $form['3'] = $request->input('share');
+        $form['4'] = $request->input('speed');
         $diary->form = $form;        
 
         $request->user()->owner_diaries()->save($diary);
 
         return redirect()->route('joinMeeting', ['meeting_id' => $meeting_id]);
+    }
+
+    //csapat naplózása
+    public function team_diary($team_id) {
+        return view('diary.team_diary', ['diaries' => Diary::all()]);
+    }
+
+    //megbeszélés naplózása
+    public function meeting_diary($meeting_id) {
+        $meeting = Meeting::where('id', $meeting_id)->firstOrFail(); 
+        
+        return view('diary.meeting_diary', ['meeting' => $meeting]);
     }
 }

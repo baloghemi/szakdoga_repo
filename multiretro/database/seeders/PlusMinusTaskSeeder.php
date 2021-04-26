@@ -84,18 +84,7 @@ class PlusMinusTaskSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        //MEETING 5
-        DB::table('plus_minus_tasks')->insert([
-            'text' => 'This is the positive text of Test PlusMinusTask 6.',
-            'feeling' => '0',
-            'positive' => '1',
-            'negative' => '1',
-            'user_id' => '7',
-            'meeting_id' => '5',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        
 
     }
 }

@@ -1,10 +1,10 @@
 <?php
 function weather_average($weather_report){
-    if((($weather_report['1'] +  $weather_report['2'] +  $weather_report['3'])/3) <= 1.5)
+    if((($weather_report['1'] +  $weather_report['2'] +  $weather_report['0'])/3) <= 1.5)
         return 'napos';
-    elseif((($weather_report['1'] +  $weather_report['2'] +  $weather_report['3'])/3) <= 2.5)
+    elseif((($weather_report['1'] +  $weather_report['2'] +  $weather_report['0'])/3) <= 2.5)
         return 'felhős';    
-    elseif((($weather_report['1'] +  $weather_report['2'] +  $weather_report['3'])/3) <= 3.5)
+    elseif((($weather_report['1'] +  $weather_report['2'] +  $weather_report['0'])/3) <= 3.5)
         return 'esős';
     else
         return 'viharos';    
@@ -25,7 +25,7 @@ function weather_sum_average($reports){
     $rep_sum = 0;
     $c = count($reports);
     for ($i = 0; $i < $c; $i++) {
-        for ($j = 1; $j < 4; $j++) {
+        for ($j = 0; $j < 3; $j++) {
             $rep_sum = $reports[$i]->weather_report[$j];
         }
     }

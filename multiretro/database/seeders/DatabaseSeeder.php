@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ActionpointSeeder::class,
             PlusMinusTaskSeeder::class,
             BlogSeeder::class,
+            DiarySeeder::class,
         ]);
     }
 }

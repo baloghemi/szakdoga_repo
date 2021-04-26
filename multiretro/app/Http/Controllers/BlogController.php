@@ -23,15 +23,15 @@ class BlogController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'text' => 'required',
+            'tag1' =>'required',
         ]);
 
         $blog = new Blog;
         $blog->title = $request->input('title');
         $blog->text = $request->input('text');
-
-        $tags = $blog->tags;
-        $tags['1'] = $request->input('tags');        
-        $blog->tags = $tags;
+        $blog->tag1 = $request->input('tag1');
+        $blog->tag2 = $request->input('tag2');
+        $blog->tag3 = $request->input('tag3');
                 
         $request->user()->owner_blogs()->save($blog); 
 
@@ -49,12 +49,12 @@ class BlogController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'text' => 'required',
+            'tag1' =>'required',
         ]);
         $blog->update($validated);      
         
-        $tags = $blog->tags;
-        $tags['1'] = $request->input('tags');        
-        $blog->tags = $tags;
+        $blog->tag2 = $request->input('tag2');
+        $blog->tag3 = $request->input('tag3');
                 
         $blog->save();
 

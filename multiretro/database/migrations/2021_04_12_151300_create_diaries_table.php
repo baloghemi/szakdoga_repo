@@ -15,14 +15,8 @@ class CreateDiariesTable extends Migration
     {
         Schema::create('diaries', function (Blueprint $table) {
             $table->id();
-            //időjárás jelentés
-            $table->json('weather_report')->nullable();            
-            //form
-            $table->json('form')->nullable(); //kulcs-érték párok szerint szétszedni
-            //plus_minus
-            $table->json('plus_minus')->nullable(); //plus_minus_task_id-k vannak benne
-            //kanban
-            $table->json('kanban')->nullable(); //actionpoint_id-k vannak benne
+            $table->json('weather_report')->nullable();
+            $table->json('form')->nullable();            
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('meeting_id');

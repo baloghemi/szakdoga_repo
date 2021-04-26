@@ -10,14 +10,12 @@ class Diary extends Model
     use HasFactory;
 
     protected $fillable = [
-        'weather_report', 'form', 'plus_minus', 'kanban', 'user_id', 'meeting_id'
+        'weather_report', 'form', 'user_id', 'meeting_id'
     ];
     
     protected $casts = [
-        'weather_report' => 'array', //számokban menteni le -> átlagokhoz
-        'plus_minus'     => 'array',
-        'kanban'         => 'array',
-        'form'           => 'array', //kulcs-érték párok
+        'weather_report' => 'array', //számokban menteni le -> átlagokhoz        
+        'form'           => 'array',
     ];
 
     //egy naplózott sornak csak egy tulajdonosa lehet: 1->1
