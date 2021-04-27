@@ -58,11 +58,6 @@ class DiaryController extends Controller
         return redirect()->route('joinMeeting', ['meeting_id' => $meeting_id]);
     }
 
-    //csapat naplózása
-    public function team_diary($team_id) {
-        return view('diary.team_diary', ['diaries' => Diary::all()]);
-    }
-
     //megbeszélés naplózása
     public function meeting_diary($meeting_id) {
         $meeting = Meeting::where('id', $meeting_id)->firstOrFail(); 

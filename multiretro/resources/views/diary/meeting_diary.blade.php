@@ -3,10 +3,13 @@
 @section('content')
     <div class="container mx-auto">
         <div style="margin-bottom: 2em;">
-            <h2 class="text-center">{{ $meeting->name }} naplózása</h2>
+            <h2 class="text-center">{{ $meeting->name }} napló</h2>
         </div>
 
-        
+        <h4>Átlagok:</h4>        
+        <h6>Időjárás jelentés: {{ weather_sum_average($meeting->diaries) }}</h6>   
+        <h6>Űrlap: {{ form_sum_average($meeting->diaries) }}</h6>   
+
         <h4>Naplózott adatok:</h4>        
         @foreach($meeting->diaries as $diary) 
             <ul class="list-group">
@@ -33,9 +36,46 @@
                         </ul>
                     </li>
                 @endif
-            </ul>                
+
+                <li class="list-group-item">Plusz-mínusz kártyák:
+                    @forelse ($diary->meeting_diary->plus_minus_tasks->where('user_id', $diary->diary_owner->id) as $task)
+                        <div class="card" style="width:33%">                            
+                            <div class="card-body">
+                                <div class="card-title">Kártya típus: {{ get_feeling($task->feeling) }}</div>
+                                <div class="card-text">
+                                    {{ $task->text }}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                Negatív szavazatok: {{ $task->negative }} db<br>
+                                Pozitív szavazatok: {{ $task->positive }} db
+                            </div>
+                        </div>
+                    @empty
+                        <p>Nincs megjeleníthető plusz-mínusz kártya!</p>
+                    @endforelse
+                </li>
+
+                <li class="list-group-item">Akciópontok:
+                    @forelse ($diary->meeting_diary->actionpoints->where('user_id', $diary->diary_owner->id) as $action)
+                        <div class="card" style="width:33%">
+                            <div class="card-body">
+                                <div class="card-title">Státusz: {{ get_status($action->status) }}</div>
+                                <div class="card-text">{{ $action->description }}</div>                                
+                            </div>
+                        </div>
+                    @empty
+                        <p>Nincs megjeleníthető akciópont!</p>
+                    @endforelse
+                </li>
+                
+            </ul> 
+            <br>               
         @endforeach
 
+        <div class="text-center">
+            <a class="btn btn-primary btn-lg mt-5 w-50" href="{{ route('diary') }}">Vissza</a>
+        </div>
         
     </div>
 

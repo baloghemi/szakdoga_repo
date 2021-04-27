@@ -4,20 +4,9 @@
     <div class="container mx-auto">
         <div class="text-center" style="margin-bottom: 2em;">
             <h2>Napló</h2>
-            <h5>A csapat/megbeszélés nevére kattintva elérhetővé válnak a hozzá tartozó naplózott adatok. 
+            <h5>A megbeszélés nevére kattintva elérhetővé válnak a hozzá tartozó naplózott adatok. 
                 Csak a lezárt megbeszélés adatai jelennek meg.</h5>
-        </div>
-
-        <!--Csapatok listázása-->
-        <h4>Csapatok:</h4>
-        <ul>
-            @foreach($teams as $team)
-                <li>
-                    <h6><a href="{{ route('teamDiary', ['team_id' => $team->id]) }}">{{ $team->name }}</a></h6>
-                </li>
-            @endforeach
-        </ul>
-        <br>
+        </div>        
 
         <!--Megbeszélések listázása-->
         <h4>Megbeszélések:</h4>        
@@ -60,6 +49,38 @@
                         </ul>
                     </li>
                 @endif
+
+                <li class="list-group-item">Plusz-mínusz kártyák:
+                    @forelse ($diary->meeting_diary->plus_minus_tasks->where('user_id', Auth::user()->id) as $task)
+                        <div class="card" style="width:33%">                            
+                            <div class="card-body">
+                                <div class="card-title">Kártya típus: {{ get_feeling($task->feeling) }}</div>
+                                <div class="card-text">
+                                    {{ $task->text }}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                Negatív szavazatok: {{ $task->negative }} db<br>
+                                Pozitív szavazatok: {{ $task->positive }} db
+                            </div>
+                        </div>
+                    @empty
+                        <p>Nincs megjeleníthető plusz-mínusz kártya!</p>
+                    @endforelse
+                </li>
+
+                <li class="list-group-item">Akciópontok:
+                    @forelse ($diary->meeting_diary->actionpoints->where('user_id', Auth::user()->id) as $action)
+                        <div class="card" style="width:33%">
+                            <div class="card-body">
+                                <div class="card-title">Státusz: {{ get_status($action->status) }}</div>
+                                <div class="card-text">{{ $action->description }}</div>                                
+                            </div>
+                        </div>
+                    @empty
+                        <p>Nincs megjeleníthető akciópont!</p>
+                    @endforelse
+                </li>
             </ul> 
         @endif
         @empty  

@@ -125,8 +125,6 @@ Route::get('/diary', [DiaryController::class,'diary'])->name('diary');
 Route::get('/diary/weather_report{meeting_id}', [DiaryController::class,'weather_report'])->name('weatherReport');
 //űrlap
 Route::get('/diary/form{meeting_id}', [DiaryController::class,'form'])->name('form');
-//csapat naplózása
-Route::get('/team_diary{team_id}', [DiaryController::class,'team_diary'])->name('teamDiary');
 //megbeszélés naplózása
 Route::get('/meeting_diary{meeting_id}', [DiaryController::class,'meeting_diary'])->name('meetingDiary');
 
