@@ -6,13 +6,16 @@
             <h2 class="text-center">{{ $meeting->name }} napló</h2>
         </div>
 
-        <h4>Átlagok:</h4>        
-        <h6>Időjárás jelentés: {{ weather_sum_average($meeting->diaries) }}</h6>   
-        <h6>Űrlap: {{ form_sum_average($meeting->diaries) }}</h6>   
+        <h4 style="margin-left: 15%;">Átlagok:</h4>   
+        <ul style="margin-left: 15%;">
+            <li class="h6">Időjárás jelentés: {{ weather_sum_average($meeting->diaries) }}</li>
+            <li class="h6">Űrlap: {{ form_sum_average($meeting->diaries) }}</li>
+        </ul>    
+        <br>
 
-        <h4>Naplózott adatok:</h4>        
+        <h4 style="margin-left: 15%;">Naplózott adatok:</h4>        
         @foreach($meeting->diaries as $diary) 
-            <ul class="list-group">
+            <ul class="list-group" style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">
                 <li class="list-group-item list-group-item-primary">{{ $diary->diary_owner->name }}</li>
                 @if (isset($diary->weather_report))
                     <?php $weather_report = $diary->weather_report ?>

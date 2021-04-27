@@ -13,15 +13,15 @@
 
     </div>
 
-    <div class="container">
-        <h3>Saját csapatok:</h3>
+    <div class="container mx-auto">
+        <h4 style="margin-left: 15%;">Saját csapatok</h4>
 
         @forelse ($teams as $team)
-        <ul class="list-group">            
+        <ul class="list-group" style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">            
             <li class="list-group-item list-group-item-primary h5">{{ $team->name }}</li>
             <li class="list-group-item h6">    
                 Tagok: 
-                @foreach($tag->users as $user)
+                @foreach($team->users as $user)
                     {{ $user->name }}, 
                 @endforeach 
             </li>
@@ -34,13 +34,13 @@
         <br>
         
         @empty
-            <p>Nincs megjeleníthető csapat!</p>
+            <p style="margin-left: 15%;">Nincs megjeleníthető csapat!</p>
         @endforelse
 
-        <h3>Tagságok:</h3>
+        <h4 style="margin-left: 15%;">Csapatok</h4>
 
         @forelse ($tagok as $tag)
-            <ul class="list-group"> 
+            <ul class="list-group" style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;"> 
                 <li class="list-group-item list-group-item-primary h5">{{ $tag->name }}</li>
                 <li class="list-group-item h6">                
                     Létrehozta: {{ $tag->team_owner->name }}
@@ -52,8 +52,9 @@
                     @endforeach
                 </li>
             </ul>
+            <br>
         @empty        
-            <p>Nincs megjeleníthető csapat!</p>
+            <p style="margin-left: 15%;">Nincs megjeleníthető csapat!</p>
         @endforelse        
         
     </div>

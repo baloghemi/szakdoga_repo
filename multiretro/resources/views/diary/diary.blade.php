@@ -4,8 +4,6 @@
     <div class="container mx-auto">
         <div class="text-center" style="margin-bottom: 2em;">
             <h2>Napló</h2>
-            <h5>A megbeszélés nevére kattintva elérhetővé válnak a hozzá tartozó naplózott adatok. 
-                Csak a lezárt megbeszélés adatai jelennek meg.</h5>
         </div>        
 
         <!--Megbeszélések listázása-->

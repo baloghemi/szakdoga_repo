@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto">
-        <div class="text-center mb-4">
+        <div class="text-center mb-5">
             <h2>Akciópontok</h2>
         </div> 
         
@@ -26,11 +26,10 @@
                         <div class="card" style="background-color: pink">
                             <div class="card-body">                      
                                 <h6 class="card-title">{{ $act->action_owner->name }}:</h6>
-                                <p class="card-text">{{ $act->description }}</p>
-                                <!--<p>Státusz: {{ $act->status }}</p>-->
+                                <p class="card-text">{{ $act->description }}</p>                                
                             </div>
                             <div class="card-footer text-center">
-                                Módosítva: {{ \Carbon\Carbon::parse($act->modified_at)->format('Y/m/d H:i') }}           
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
                             </div>
                         </div>
                     <br>
@@ -47,7 +46,7 @@
                                 <p class="card-text">{{ $act->description }}</p>                                
                             </div>
                             <div class="card-footer text-center">
-                                Módosítva: {{ \Carbon\Carbon::parse($act->modified_at)->format('Y/m/d H:i') }}           
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
                             </div>
                         </div>
                     <br>
@@ -64,7 +63,7 @@
                                 <p class="card-text">{{ $act->description }}</p>                                
                             </div>
                             <div class="card-footer text-center">
-                                Módosítva: {{ \Carbon\Carbon::parse($act->modified_at)->format('Y/m/d H:i') }}           
+                                Módosítva: {{ \Carbon\Carbon::parse($act->updated_at)->format('Y/m/d H:i') }}           
                             </div>
                         </div>          
                     <br>
@@ -75,6 +74,7 @@
             </tbody>
         </table> 
         @endif
+        <br>
         @endforeach
 
         <div class="text-center">

@@ -12,9 +12,9 @@
     </div>
 
     <div class="container">
-        <h3>Saját megbeszélések</h3>
+        <h4 style="margin-left: 15%;">Saját megbeszélések</h4>
 
-        <ul class="list-group">
+        <ul class="list-group"  style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">
             @forelse ($meetings as $meeting)
             @if($meeting->active == 'true')
                 <li class="list-group-item list-group-item-primary h5">
@@ -37,14 +37,14 @@
             @endforelse
         </ul>  
 
-        <h3>Megbeszélések</h3>
+        <h4 style="margin-left: 15%;">Megbeszélések</h4>
         
         @forelse ($teams as $team)                
             @if ($team->users()->pluck('name')->contains(Auth::user()->name) or $team->team_owner->name == Auth::user()->name)                
                 @foreach ($all_meet as $meet)  
                     @if ($meet->active == 'true' and $team->meetings()->pluck('id')->contains($meet->id) 
                         and $meet->meet_owner->name != Auth::user()->name)
-                    <ul class="list-group">
+                    <ul class="list-group"  style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">
                         <li class="list-group-item list-group-item-primary h5">
                             {{ $meet->name }}  <a class="btn btn-outline-primary btn-lg" style="float: right;" 
                                                   href="{{ route('joinMeeting', ['meeting_id' => $meet->id]) }}">Megnyitás</a>
@@ -53,6 +53,7 @@
                         <li class="list-group-item h6">Dátum: {{ \Carbon\Carbon::parse($meet->meet_date)->format('Y/m/d H:i') }}</li>
                         <li class="list-group-item h6">Csapat: {{ $meet->team->name }}</li>              
                     </ul>  
+                    <br>
                     @endif
                 @endforeach
             @endif

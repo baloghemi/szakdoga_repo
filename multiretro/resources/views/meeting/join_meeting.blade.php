@@ -7,19 +7,24 @@
         </div> 
 
         <!--Megbeszélés adatainak kilistázása-->
-        <h3>Adatok</h3>
-        <ul class="list-group mb-5">            
-            <li class="list-group-item h6">A megbeszélést létrehozta: {{ $meeting->meet_owner->name }}</li>
-            <li class="list-group-item h6">Dátum: {{ \Carbon\Carbon::parse($meeting->meet_date)->format('Y/m/d H:i') }}</li>            
-            <li class="list-group-item h6">Csapat: {{ $meeting->team->name }}</li>
-            <li class="list-group-item h6">
-                Csapattagok: 
-                {{ $meeting->team->team_owner->name }},
-                @foreach($meeting->team->users as $user)
-                    {{ $user->name }}, 
-                @endforeach
-            </li>
-        </ul>
+        <div class="card">
+            <div class="card-header h3">Adatok</div>            
+            <ul class="list-group list-group-flush">            
+                <li class="list-group-item h6">A megbeszélést létrehozta: {{ $meeting->meet_owner->name }}</li>
+                <li class="list-group-item h6">Dátum: {{ \Carbon\Carbon::parse($meeting->meet_date)->format('Y/m/d H:i') }}</li>            
+                <li class="list-group-item h6">Csapat: {{ $meeting->team->name }}</li>
+                <li class="list-group-item h6">
+                    Csapattagok: 
+                    {{ $meeting->team->team_owner->name }},
+                    @foreach($meeting->team->users as $user)
+                        {{ $user->name }}, 
+                    @endforeach
+                </li>
+            </ul>            
+        </div>
+        <br>
+        <hr style="width: 50%">
+        <br>
 
         <!--Időjárás jelentés technika-->
         <?php 
@@ -127,6 +132,9 @@
                 </div>
                 </div>
             @endif
+            <br>
+            <hr style="width: 50%">
+            <br>
         @endif
 
 
@@ -245,7 +253,10 @@
                     
                     </tr>
                 </tbody>
-            </table>         
+            </table>     
+            <br>
+            <hr style="width: 50%">
+            <br>    
         @endif
 
         @if($meeting->techniques['2'] == '1')
@@ -343,6 +354,9 @@
                     <h5>Az űrlap sikeresen el lett mentve!</h5>
                 </div>
             @endif
+            <br>
+            <hr style="width: 50%">
+            <br>
         @endif
             
         <!--Akciópontok létrehozásának helye-->        

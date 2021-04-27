@@ -108,7 +108,7 @@
         
         <footer class="footer text-center">        
             <div class="container">
-                <span class="text-muted">Fejlesztő: Balogh Emese | Telefon: xy | E-mail: ii1ank@inf.elte.hu</span>
+                <span class="text-muted">Fejlesztő: Balogh Emese | Telefon: +36 01/234-5678 | E-mail: ii1ank@inf.elte.hu</span>
             </div>
         </footer>
     </div>
