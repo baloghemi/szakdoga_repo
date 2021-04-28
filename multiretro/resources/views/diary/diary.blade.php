@@ -7,8 +7,8 @@
         </div>        
 
         <!--Megbeszélések listázása-->
-        <h4>Megbeszélések:</h4>        
-        <ul>
+        <h4 style="margin-left: 15%;">Megbeszélések:</h4>        
+        <ul style="margin-left: 15%;">
             @foreach($meetings as $meeting)
             @if($meeting->active == 'false')
                 <li>
@@ -20,10 +20,10 @@
         <br>
 
         <!--Saját naplózott adatok-->    
-        <h4>Saját naplózott adatok:</h4>        
+        <h4 style="margin-left: 15%;">Saját naplózott adatok:</h4>        
         @forelse($diaries as $diary)  
         @if ($diary->diary_owner->id == Auth::user()->id and $diary->meeting_diary->active == 'false')          
-            <ul class="list-group">
+            <ul class="list-group" style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">
                 <li class="list-group-item list-group-item-primary">{{ $diary->meeting_diary->name }}</li>
                 @if (isset($diary->weather_report))
                     <?php $weather_report = $diary->weather_report ?>
@@ -82,7 +82,7 @@
             </ul> 
         @endif
         @empty  
-            <p>Nincs megjeleníthető napló!</p>
+            <p style="margin-left: 15%;">Nincs megjeleníthető napló!</p>
         @endforelse  
 
         
