@@ -10,7 +10,7 @@
 
             <form action="{{ route('modifyActionpoint', ['act_id' => $action->id]) }}" method="POST">  
                 @csrf                    
-                <div>
+                <div class="form-group">
                 <label for="description" class="h5">Akciópont leírása</label>
                 <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása">{{ $action->description }}</textarea>
                     @error('description')
@@ -20,7 +20,7 @@
                     @enderror
                 </div>
             
-                <h5 class="mt-2">Választható felhasználók:</h5>
+                <h5>Választható felhasználók:</h5>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" value="{{$action->meeting_act->team->team_owner->id}}" name="user"
                     {{is_null(old('action')) && isset($action) && $action->user_id == $action->meeting_act->team->team_owner->id ? "checked" : old('action')}}>

@@ -9,20 +9,28 @@
         <!--Megbeszélések listázása-->
         <h4 style="margin-left: 15%;">Megbeszélések:</h4>        
         <ul style="margin-left: 15%;">
-            @foreach($meetings as $meeting)
-            @if($meeting->active == 'false')
-                <li>
-                    <h6><a href="{{ route('meetingDiary', ['meeting_id' => $meeting->id]) }}">{{ $meeting->name }}</a></h6>
-                </li>
-            @endif
+            <?php $c1 = 0 ?>
+            @foreach($meetings as $meeting)            
+                @if($meeting->active == 'false' and ($meeting->team->users->contains(Auth::user()) or $meeting->team->team_owner == Auth::user()))
+                    <li>
+                    <h6><a href="{{ route('meetingDiary', ['meeting_id' => $meeting->id]) }}">{{ $meeting->name }} | {{$meeting->meet_date}}</a></h6>
+                    </li>
+                    <?php $c1++; ?>
+                @endif 
             @endforeach
+
+            @if($c1 == 0)
+                <p>Nincs megjeleníthető megbeszélés!</p>         
+            @endif 
         </ul>
         <br>
 
         <!--Saját naplózott adatok-->    
         <h4 style="margin-left: 15%;">Saját naplózott adatok:</h4>        
-        @forelse($diaries as $diary)  
-        @if ($diary->diary_owner->id == Auth::user()->id and $diary->meeting_diary->active == 'false')          
+        <?php $c2 = 0 ?>
+        @foreach($diaries as $diary)
+        @if ($diary->diary_owner->id == Auth::user()->id and $diary->meeting_diary->active == 'false')
+            <?php $c2++ ?>
             <ul class="list-group" style="margin: 0 auto; float: none; margin-bottom: 10 px; width: 70%;">
                 <li class="list-group-item list-group-item-primary">{{ $diary->meeting_diary->name }}</li>
                 @if (isset($diary->weather_report))
@@ -79,11 +87,13 @@
                         <p>Nincs megjeleníthető akciópont!</p>
                     @endforelse
                 </li>
-            </ul> 
+            </ul>            
         @endif
-        @empty  
-            <p style="margin-left: 15%;">Nincs megjeleníthető napló!</p>
-        @endforelse  
+        @endforeach 
+
+        @if($c2 == 0)
+            <p style="margin-left: 15%;">Nincs megjeleníthető napló!</p>         
+        @endif            
 
         
     </div>
