@@ -39,7 +39,8 @@
 
         <h4 style="margin-left: 15%;">Megbeszélések</h4>
         
-        @forelse ($teams as $team)                
+        <?php $c = 0 ?>
+        @foreach ($teams as $team)                
             @if ($team->users()->pluck('name')->contains(Auth::user()->name) or $team->team_owner->name == Auth::user()->name)                
                 @foreach ($all_meet as $meet)  
                     @if ($meet->active == 'true' and $team->meetings()->pluck('id')->contains($meet->id) 
@@ -54,12 +55,15 @@
                         <li class="list-group-item h6">Csapat: {{ $meet->team->name }}</li>              
                     </ul>  
                     <br>
+                    <?php $c++; ?>
                     @endif
                 @endforeach
             @endif
-        @empty  
-            <p>Nincs megjeleníthető megbeszélés!</p>
-        @endforelse
+        @endforeach
+
+        @if($c == 0)
+            <p style="margin-left: 15%;">Nincs megjeleníthető megbeszélés!</p>         
+        @endif 
 
 
     </div>  
