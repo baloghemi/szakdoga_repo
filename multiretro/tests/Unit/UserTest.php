@@ -117,4 +117,7 @@ class UserTest extends TestCase
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();    
     }
+
+    //felhasználó nézet
+    
 }
