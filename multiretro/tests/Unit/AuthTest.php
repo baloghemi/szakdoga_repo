@@ -118,6 +118,4 @@ class UserTest extends TestCase
         $this->assertGuest();    
     }
 
-    //felhasználó nézet
-    
 }
