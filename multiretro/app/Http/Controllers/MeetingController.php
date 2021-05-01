@@ -28,8 +28,9 @@ class MeetingController extends Controller
 
     public function new_meeting(Request $request) {       
         $validated = $request->validate([
-            'name' => 'required',
-            'meet_date' => 'required',
+            'name' => 'required|max:255',
+            'meet_date' => 'required|date|after:yesterday',
+            'team' => 'required',            
         ]);
 
         $meeting = new Meeting;
@@ -57,8 +58,9 @@ class MeetingController extends Controller
     public function modify_meeting(Request $request, $meeting_id) {
         $meeting = Meeting::where('id', $meeting_id)->firstOrFail();
         $validated = $request->validate([
-            'name' => 'required',
-            'meet_date' => 'required',
+            'name' => 'required|max:255',
+            'meet_date' => 'required|date|after:yesterday',
+            'team' => 'required',               
         ]);
         $meeting->update($validated);
         $meeting->team_id = $request->input('team');
@@ -83,6 +85,15 @@ class MeetingController extends Controller
     public function delete_meeting($meeting_id) {
         $meeting = Meeting::where('id', $meeting_id)->firstOrFail();  
         
+        foreach($meeting->actionpoints as $action){
+            $action->delete();
+        }
+        foreach($meeting->plus_minus_tasks as $task){
+            $task->delete();
+        }
+        foreach($meeting->diaries as $diary) {
+            $diary->delete();
+        }
         $meeting->delete();
 
         return redirect()->route('meetings'); 

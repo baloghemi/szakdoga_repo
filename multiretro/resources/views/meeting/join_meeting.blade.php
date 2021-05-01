@@ -147,7 +147,7 @@
                 <form action="{{ route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}" method="GET">                      
                     <div>
                         <label for="description" class="h5">Kártya leírása</label>
-                        <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása"></textarea>
+                    <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása">{{old('text')}}</textarea>
                         @error('text')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -505,7 +505,8 @@
     <!--Megbeszélés lezárása-->
     @if(Auth::user()->id == $meeting->meet_owner->id)
         <div class="text-center">
-            <a class="btn btn-outline-danger btn-lg mt-5 w-50" href="{{ route('endMeeting', ['meeting_id' => $meeting->id]) }}">Megbeszélés lezárása</a>
+            <a class="btn btn-outline-danger btn-lg mt-5 w-50" onclick="return confirm('Biztosan le szeretné zárni a megbeszélést?')"
+            href="{{ route('endMeeting', ['meeting_id' => $meeting->id]) }}">Megbeszélés lezárása</a>
         </div>
     @endif
 

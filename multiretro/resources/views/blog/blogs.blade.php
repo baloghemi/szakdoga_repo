@@ -41,7 +41,7 @@
             </div>
             <br>      
         @empty
-            <p>Nincs megjeleníthető blog!</p>
+            <p style="margin-left: 25%;">Nincs megjeleníthető blog!</p>
         @endforelse
     </div>
 

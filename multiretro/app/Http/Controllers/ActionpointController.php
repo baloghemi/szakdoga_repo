@@ -57,7 +57,8 @@ class ActionpointController extends Controller
     //új akciópont létrehozása
     public function new_actionpoint(Request $request, $meeting_id) {       
         $validated = $request->validate([
-            'description' => 'required',           
+            'description' => 'required|max:1000',
+            'user' => 'required'
         ]);
 
         $action = new Actionpoint;
@@ -81,7 +82,8 @@ class ActionpointController extends Controller
         $action = Actionpoint::where('id', $act_id)->firstOrFail();
 
         $validated = $request->validate([
-            'description' => 'required',           
+            'description' => 'required|max:1000',
+            'user' => 'required'           
         ]);
 
         $action->description = $request->input('description');        

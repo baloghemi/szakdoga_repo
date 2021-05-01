@@ -22,7 +22,8 @@
 
         <div class="text-center mt-2">
             <a class="btn btn-outline-secondary btn-lg" href="{{ route('sendToModifyBlog', ['blog_id' => $blog->id]) }}">Szerkesztés</a>
-            <a class="btn btn-outline-danger btn-lg" href="{{ route('deleteBlog', ['blog_id' => $blog->id]) }}">Törlés</a>
+            <a class="btn btn-outline-danger btn-lg"  onclick="return confirm('Biztosan törli a blogot?')"
+            href="{{ route('deleteBlog', ['blog_id' => $blog->id]) }}">Törlés</a>
         </div>  
           
         <br>      

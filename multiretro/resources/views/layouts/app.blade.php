@@ -58,7 +58,7 @@
                                 <a class="nav-link" href="{{ route('teams') }}">{{ __('Csapatok') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('meetings') }}">{{ __('Megbeszélés') }}</a>
+                                <a class="nav-link" href="{{ route('meetings') }}">{{ __('Megbeszélések') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('actionpoints') }}">{{ __('Akciópontok') }}</a>

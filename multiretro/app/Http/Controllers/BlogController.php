@@ -21,9 +21,11 @@ class BlogController extends Controller
 
     public function new_blog(Request $request) {        
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'text' => 'required',
-            'tag1' =>'required',
+            'tag1' =>'required|max:25',
+            'tag2' => 'max:25',
+            'tag3' => 'max:25'
         ]);
 
         $blog = new Blog;
@@ -47,9 +49,11 @@ class BlogController extends Controller
     public function modify_blog(Request $request, $blog_id) {
         $blog = Blog::where('id', $blog_id)->firstOrFail();
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'text' => 'required',
-            'tag1' =>'required',
+            'tag1' =>'required|max:25',
+            'tag2' => 'max:25',
+            'tag3' => 'max:25'
         ]);
         $blog->update($validated);      
         

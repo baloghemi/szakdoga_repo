@@ -22,7 +22,8 @@ class TeamController extends Controller
 
     public function new_team(Request $request) {        
         $validated = $request->validate([
-            'name' => 'required'
+            'name' => 'required|max:255',
+            'people' => 'required'
         ]);
 
         $team = new Team;
@@ -43,7 +44,8 @@ class TeamController extends Controller
     public function modify_team(Request $request, $team_id) {
         $team = Team::where('id', $team_id)->firstOrFail();
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:255',
+            'people' => 'required'
         ]);
         $team->update($validated);      
         
@@ -63,7 +65,19 @@ class TeamController extends Controller
     public function delete_team($team_id) {
         $team = Team::where('id', $team_id)->firstOrFail();
        
-        $team->users()->detach();   
+        $team->users()->detach();
+        foreach($team->meetings as $meeting) {
+            foreach($meeting->actionpoints as $action){
+                $action->delete();
+            }
+            foreach($meeting->plus_minus_tasks as $task){
+                $task->delete();
+            }
+            foreach($meeting->diaries as $diary) {
+                $diary->delete();
+            }
+            $meeting->delete();
+        }
         $team->delete();
 
         return redirect()->route('teams'); 

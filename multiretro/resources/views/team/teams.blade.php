@@ -29,7 +29,8 @@
 
         <div class="text-center">
             <a class="btn btn-outline-secondary btn-lg" href="{{ route('sendToModifyTeam', ['team_id' => $team->id]) }}">Szerkesztés</a>
-            <a class="btn btn-outline-danger btn-lg" href="{{ route('deleteTeam', ['team_id' => $team->id]) }}">Törlés</a>
+            <a class="btn btn-outline-danger btn-lg" onclick="return confirm('Biztosan törölni szeretné a csapatot? Minden hozzá tartozó megbeszélés és naplózott adat törlődni fog!')" 
+                href="{{ route('deleteTeam', ['team_id' => $team->id]) }}">Törlés</a>
         </div>
         <br>
         

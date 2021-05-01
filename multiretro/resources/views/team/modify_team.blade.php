@@ -25,10 +25,10 @@
                         <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{$user->id}}" name="people[]"                         
                                 {{is_null(old('people')) && isset($team) && $team->users()->get()->pluck('id')->contains($user->id) ? "checked" : old('people')}}>
-                                <label class="form-check-label" for="people{{$user->id}}">{{ $user->name }}</label>
+                                <label class="form-check-label" for="people{{$user->id}}">{{ $user->name }}</label>                                
                         </div>
                     @endif
-                    @endforeach  
+                    @endforeach     
                 </div>
 
                 <br>

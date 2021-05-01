@@ -15,7 +15,8 @@ class PlusMinusTaskController extends Controller
     public function new_task(Request $request, $meeting_id) {
 
         $validated = $request->validate([
-            'text' => 'required',
+            'text' => 'required|max:1000',
+            'feeling' => 'required'
         ]);
 
         $task = new PlusMinusTask;

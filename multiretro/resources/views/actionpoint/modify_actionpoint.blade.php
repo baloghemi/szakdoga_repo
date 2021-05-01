@@ -4,7 +4,8 @@
     <div class="container mx-auto">
         <div class="card mb-4 mt-4">
         <h3 class="card-header">Akciópont módosítása
-            <a class="btn btn-danger btn-lg" style="float: right;" href="{{ route('deleteActionpoint', ['act_id' => $action->id]) }}">Akciópont törlése</a>
+            <a class="btn btn-danger btn-lg" style="float: right;"  onclick="return confirm('Biztosan törli az akciópontot?')"
+            href="{{ route('deleteActionpoint', ['act_id' => $action->id]) }}">Akciópont törlése</a>
         </h3>
             <div class="card-body">
 

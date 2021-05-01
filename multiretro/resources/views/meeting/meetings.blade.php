@@ -28,7 +28,8 @@
 
                 <div class="text-center">
                     <a class="btn btn-outline-secondary btn-lg" href="{{ route('sendToModifyMeeting', ['meeting_id' => $meeting->id]) }}">Szerkesztés</a>
-                    <a class="btn btn-outline-danger btn-lg" href="{{ route('deleteMeeting', ['meeting_id' => $meeting->id]) }}">Törlés</a>
+                    <a class="btn btn-outline-danger btn-lg" onclick="return confirm('Biztosan törölni szeretné a megbeszélést? Minden hozzá tartozó akciópont és naplózott adat törlődni fog!')"
+                        href="{{ route('deleteMeeting', ['meeting_id' => $meeting->id]) }}">Törlés</a>
                 </div>
                 <br>
             @endif
