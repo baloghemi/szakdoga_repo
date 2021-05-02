@@ -10,15 +10,16 @@
             <h3>Kanban tábla</h3>            
         </div> 
 
+        <div class="table-responsive">       
         <table class="table table-bordered">
             <caption>
 
             </caption>
             <thead class="text-center">
                 <tr>                
-                    <th scope="col">Megvalósításra vár</th>
-                    <th scope="col">Megvalósítása folyamatban</th>
-                    <th scope="col">Megvalósítva</th>
+                    <th scope="col" style="width: 300px;">Megvalósításra vár</th>
+                    <th scope="col" style="width: 300px;">Megvalósítása folyamatban</th>
+                    <th scope="col" style="width: 300px;">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,6 +119,7 @@
                 </tr>
             </tbody>
         </table> 
+        </div>
 
 
     </div>

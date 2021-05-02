@@ -37,7 +37,8 @@
         @if($meeting->techniques['0'] == '1')
             <h3>Hangulat - időjárás jelentés</h3>   
 
-            <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET">        
+            <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET"> 
+            <div class="table-responsive">       
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -114,6 +115,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
 
                 @if(!isset($weather_report))
                     <div class="text-center">
@@ -174,11 +176,12 @@
 
             <!--Plusz-mínusz feladat tábla-->
             <h3>Plusz-mínusz tábla</h3>
+            <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="text-center">
                     <tr>                
-                        <th scope="col">Pozitív</th>
-                        <th scope="col">Negatív</th>                   
+                        <th scope="col" style="width: 430px;">Pozitív</th>
+                        <th scope="col" style="width: 430px;">Negatív</th>                   
                     </tr>
                 </thead>
                 <tbody>
@@ -253,7 +256,8 @@
                     
                     </tr>
                 </tbody>
-            </table>     
+            </table> 
+            </div>    
             <br>
             <hr style="width: 50%">
             <br>    
@@ -266,6 +270,7 @@
             <h5>Mennyire vagy elégedett a következőkkel a csapatban? (1 - Egyáltalán nem, 3 - Teljes mértékben)</h5>
 
             <form action="{{ route('form', ['meeting_id' => $meeting->id]) }}" method="GET">
+            <div class="table-responsive">       
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -341,7 +346,8 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>                              
+                </table>   
+                </div>                           
                     
                 <br>
                 <div class="text-center">
@@ -396,12 +402,13 @@
 
         <!--Kanban tábla az akciópontokkal-->
         <h3>Kanban tábla</h3>
+        <div class="table-responsive">
         <table class="table table-bordered">
             <thead class="text-center">
                 <tr>                
-                    <th scope="col">Megvalósításra vár</th>
-                    <th scope="col">Megvalósítása folyamatban</th>
-                    <th scope="col">Megvalósítva</th>
+                    <th scope="col" style="width: 300px;">Megvalósításra vár</th>
+                    <th scope="col" style="width: 300px;">Megvalósítása folyamatban</th>
+                    <th scope="col" style="width: 300px;">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -499,6 +506,7 @@
                 </tr>
             </tbody>
         </table> 
+        </div>
         
     </div>
 

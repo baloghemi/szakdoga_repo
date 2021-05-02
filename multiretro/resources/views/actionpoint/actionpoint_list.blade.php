@@ -10,12 +10,13 @@
         @foreach ($meetings as $meeting)
         @if($meeting->active == 'true' and ($meeting->team->users->contains(Auth::user()) or $meeting->team->team_owner == Auth::user()))
         <h4 class="text-center">{{ $meeting->name }}</h4>
+        <div class="table-responsive">
         <table class="table table-bordered">
             <thead class="text-center">
                 <tr>                
-                    <th scope="col">Megvalósításra vár</th>
-                    <th scope="col">Megvalósítása folyamatban</th>
-                    <th scope="col">Megvalósítva</th>
+                    <th scope="col" style="width: 300px;">Megvalósításra vár</th>
+                    <th scope="col" style="width: 300px;">Megvalósítása folyamatban</th>
+                    <th scope="col" style="width: 300px;">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,6 +74,7 @@
                 </tr>
             </tbody>
         </table> 
+        </div>
         @endif
         <br>
         @endforeach
