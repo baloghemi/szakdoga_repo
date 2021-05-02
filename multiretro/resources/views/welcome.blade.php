@@ -8,8 +8,8 @@
 
     <div class="container">
         <div class="row align-items-center">
-            <div class="col img-responsive">
-                <img src="{{asset('img/cat_puzzle.png')}}" alt="cat_puzzle">
+            <div class="col">
+                <img class="img-responsive" src="{{asset('img/cat_puzzle.png')}}" alt="cat_puzzle">
             </div>
 
             <div class="col" style="text-align: justify;">
