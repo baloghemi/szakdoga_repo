@@ -43,13 +43,13 @@
                     <tr>
                         <th scope="col"></th>
                         <th scope="col" class="text-center">
-                            <img src="{{asset('img/sunny.png')}}" class="img-fluid" alt="sunny"></th>
+                            <img src="{{asset('img/sunny.png')}}" class="img-responsive" alt="sunny"></th>
                         <th scope="col" class="text-center">
-                            <img src="{{asset('img/cloudy.png')}}" class="img-fluid" alt="cloudy"></th>
+                            <img src="{{asset('img/cloudy.png')}}" class="img-responsive" alt="cloudy"></th>
                         <th scope="col" class="text-center">
-                            <img src="{{asset('img/rainy.png')}}" class="img-fluid" alt="rainy"></th>
+                            <img src="{{asset('img/rainy.png')}}" class="img-responsive" alt="rainy"></th>
                         <th scope="col" class="text-center">
-                            <img src="{{asset('img/stormy.png')}}" class="img-fluid" alt="stormy"></th>
+                            <img src="{{asset('img/stormy.png')}}" class="img-responsive" alt="stormy"></th>
                     </tr>
                 </thead>
                     <tbody>
@@ -177,8 +177,8 @@
             <table class="table table-bordered">
                 <thead class="text-center">
                     <tr>                
-                        <th scope="col" style="width:50%">Pozitív</th>
-                        <th scope="col" style="width:50%">Negatív</th>                   
+                        <th scope="col">Pozitív</th>
+                        <th scope="col">Negatív</th>                   
                     </tr>
                 </thead>
                 <tbody>
@@ -186,7 +186,7 @@
                     <td>            
                     @foreach ($meeting->plus_minus_tasks as $task)
                         @if($task->feeling == "0")                    
-                            <div class="card" style="background-color: pink">
+                            <div class="card" style="width: 430px; background-color: pink; margin-left: auto; margin-right: auto;">
                                 <table class="card-header card-table table table-borderless text-center">
                                     <thead>
                                     <tr>
@@ -220,7 +220,7 @@
                     <td>            
                         @foreach ($meeting->plus_minus_tasks as $task)
                         @if($task->feeling == "1")                    
-                            <div class="card" style="background-color: lightSkyBlue">
+                            <div class="card" style="width: 430px; background-color: lightSkyBlue; margin-left: auto; margin-right: auto;">
                                 <table class="card-header card-table table table-borderless text-center">
                                     <thead>
                                     <tr>
@@ -399,9 +399,9 @@
         <table class="table table-bordered">
             <thead class="text-center">
                 <tr>                
-                    <th scope="col" style="width:33%">Megvalósításra vár</th>
-                    <th scope="col" style="width:33%">Megvalósítása folyamatban</th>
-                    <th scope="col" style="width:33%">Megvalósítva</th>
+                    <th scope="col">Megvalósításra vár</th>
+                    <th scope="col">Megvalósítása folyamatban</th>
+                    <th scope="col">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -409,7 +409,7 @@
                 <td>            
                 @foreach ($meeting->actionpoints as $act)
                     @if($act->status == "to_do")                    
-                        <div class="card" style="background-color: pink">
+                        <div class="card" style="background-color: pink; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
@@ -438,7 +438,7 @@
                 <td>          
                 @foreach ($meeting->actionpoints as $act)
                     @if($act->status == "doing")
-                        <div class="card" style="background-color: aquamarine">
+                        <div class="card" style="background-color: aquamarine; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
@@ -470,7 +470,7 @@
                 <td>       
                 @foreach ($meeting->actionpoints as $act)
                     @if($act->status == "done")
-                        <div class="card" style="background-color: lightSkyBlue">
+                        <div class="card" style="background-color: lightSkyBlue; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>

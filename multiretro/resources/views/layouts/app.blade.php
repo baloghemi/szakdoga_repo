@@ -92,25 +92,7 @@
             @yield('content')
         </main>  
         
-        <style>            
-            .footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 60px;
-                line-height: 60px;
-                background-color: #f5f5f5;
-            }
-        </style>
-
-        <br><br>
         
-        <footer class="footer text-center">        
-            <div class="container">
-                <span class="text-muted">Fejlesztő: Balogh Emese | Telefon: +36 01/234-5678 | E-mail: ii1ank@inf.elte.hu</span>
-            </div>
-        </footer>
     </div>
     
 </body>

@@ -7,7 +7,7 @@
         </div>
 
         @forelse ($blogs as $blog) 
-        <div class="card" style=" margin: 0 auto; float: none; margin-bottom: 10 px; width: 50%;">        
+        <div class="card" style=" margin: 0 auto; float: none; margin-bottom: 10 px; width: 500px;">        
             <div class="card-header">                
                 <p style="float: right;"> Módosítva: {{ \Carbon\Carbon::parse($blog->updated_at)->format('Y/m/d H:i') }}</p>
             </div>

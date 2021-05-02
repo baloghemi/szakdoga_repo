@@ -58,7 +58,7 @@
 
                 <li class="list-group-item">Plusz-mínusz kártyák:
                     @forelse ($diary->meeting_diary->plus_minus_tasks->where('user_id', Auth::user()->id) as $task)
-                        <div class="card" style="width: 33%">                            
+                        <div class="card" style="width: 270px;">                            
                             <div class="card-body">
                                 <div class="card-title">Kártya típus: {{ get_feeling($task->feeling) }}</div>
                                 <div class="card-text">
@@ -77,7 +77,7 @@
 
                 <li class="list-group-item">Akciópontok:
                     @forelse ($diary->meeting_diary->actionpoints->where('user_id', Auth::user()->id) as $action)
-                        <div class="card" style="width:33%">
+                        <div class="card" style="width: 270px;">
                             <div class="card-body">
                                 <div class="card-title">Státusz: {{ get_status($action->status) }}</div>
                                 <div class="card-text">{{ $action->description }}</div>                                

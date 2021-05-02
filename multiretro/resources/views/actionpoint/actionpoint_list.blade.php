@@ -13,9 +13,9 @@
         <table class="table table-bordered">
             <thead class="text-center">
                 <tr>                
-                    <th scope="col" style="width:33%">Megvalósításra vár</th>
-                    <th scope="col" style="width:33%">Megvalósítása folyamatban</th>
-                    <th scope="col" style="width:33%">Megvalósítva</th>
+                    <th scope="col">Megvalósításra vár</th>
+                    <th scope="col">Megvalósítása folyamatban</th>
+                    <th scope="col">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                 <td>            
                 @foreach ($actionpoints as $act)
                     @if($act->status == "to_do" and $meeting->id == $act->meeting_act->id)                    
-                        <div class="card" style="background-color: pink">
+                        <div class="card" style="background-color: pink; width: 300px; margin-left: auto; margin-right: auto;">
                             <div class="card-body">                      
                                 <h6 class="card-title">{{ $act->action_owner->name }}:</h6>
                                 <p class="card-text">{{ $act->description }}</p>                                
@@ -40,7 +40,7 @@
                 <td>          
                 @foreach ($actionpoints as $act)
                     @if($act->status == "doing" and $meeting->id == $act->meeting_act->id)
-                        <div class="card" style="background-color: aquamarine">
+                        <div class="card" style="background-color: aquamarine; width: 300px; margin-left: auto; margin-right: auto;">
                             <div class="card-body">                                                    
                                 <h6 class="card-title">{{ $act->action_owner->name }}:</h6>
                                 <p class="card-text">{{ $act->description }}</p>                                
@@ -57,7 +57,7 @@
                 <td>       
                 @foreach ($actionpoints as $act)
                     @if($act->status == "done" and $meeting->id == $act->meeting_act->id)
-                        <div class="card" style="background-color: lightSkyBlue">
+                        <div class="card" style="background-color: lightSkyBlue; width: 300px; margin-left: auto; margin-right: auto;">
                             <div class="card-body">                                                    
                                 <h6 class="card-title">{{ $act->action_owner->name }}:</h6>
                                 <p class="card-text">{{ $act->description }}</p>                                

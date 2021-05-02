@@ -16,9 +16,9 @@
             </caption>
             <thead class="text-center">
                 <tr>                
-                    <th scope="col" style="width:33%">Megvalósításra vár</th>
-                    <th scope="col" style="width:33%">Megvalósítása folyamatban</th>
-                    <th scope="col" style="width:33%">Megvalósítva</th>
+                    <th scope="col">Megvalósításra vár</th>
+                    <th scope="col">Megvalósítása folyamatban</th>
+                    <th scope="col">Megvalósítva</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                 <td>            
                 @foreach ($actionpoints as $act)
                     @if($act->meeting_act->active == 'true' and $act->status == "to_do")                    
-                        <div class="card" style="background-color: pink">
+                        <div class="card" style="background-color: pink; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
@@ -56,7 +56,7 @@
                 <td>          
                 @foreach ($actionpoints as $act)
                     @if($act->meeting_act->active == 'true' and $act->status == "doing")
-                        <div class="card" style="background-color: aquamarine">
+                        <div class="card" style="background-color: aquamarine; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
@@ -89,7 +89,7 @@
                 <td>       
                 @foreach ($actionpoints as $act)
                     @if($act->meeting_act->active == 'true' and $act->status == "done")
-                        <div class="card" style="background-color: lightSkyBlue">
+                        <div class="card" style="background-color: lightSkyBlue; width: 300px; margin-left: auto; margin-right: auto;">
                             <table class="card-header card-table table table-borderless text-center">
                                 <thead>
                                 <tr>
