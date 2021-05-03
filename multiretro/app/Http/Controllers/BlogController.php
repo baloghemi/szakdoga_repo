@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class BlogController extends Controller
 {
     public function blogs() {
-        return view('blog.blogs', ['blogs' => Blog::all()]);
+        return view('blog.blogs', ['blogs' => Blog::orderByDesc('updated_at')->get()]);
     }
 
     //új blog létrehozása
@@ -67,7 +67,7 @@ class BlogController extends Controller
 
     //saját blogok listázása
     public function blog_list() {
-        return view('blog.blog_list', ['blogs' => Blog::where('user_id', Auth::user()->id)->orderBy('updated_at')->get()]);
+        return view('blog.blog_list', ['blogs' => Blog::where('user_id', Auth::user()->id)->orderByDesc('updated_at')->get()]);
     }
 
     //blog törlése

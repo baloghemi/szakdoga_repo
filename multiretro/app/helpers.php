@@ -73,3 +73,58 @@ function form_sum_average($forms) {
 
     return ($forms_sum/($c*5)); 
 }
+
+//űrlap összesített átlag - kommunikáció
+function form_sum_average_com($forms) {
+    $forms_sum = 0;
+    $c = count($forms);
+    for ($i = 0; $i < $c; $i++) {        
+        $forms_sum += $forms[$i]->form[0];        
+    }
+
+    return ($forms_sum/($c)); 
+}
+
+//űrlap összesített átlag - egymás segítése
+function form_sum_average_help($forms) {
+    $forms_sum = 0;
+    $c = count($forms);
+    for ($i = 0; $i < $c; $i++) {        
+        $forms_sum += $forms[$i]->form[1];        
+    }
+
+    return ($forms_sum/($c)); 
+}
+
+//űrlap összesített átlag - tisztelet
+function form_sum_average_respect($forms) {
+    $forms_sum = 0;
+    $c = count($forms);
+    for ($i = 0; $i < $c; $i++) {        
+        $forms_sum += $forms[$i]->form[2];        
+    }
+
+    return ($forms_sum/($c)); 
+}
+
+//űrlap összesített átlag - tehermegosztás
+function form_sum_average_share($forms) {
+    $forms_sum = 0;
+    $c = count($forms);
+    for ($i = 0; $i < $c; $i++) {        
+        $forms_sum += $forms[$i]->form[3];        
+    }
+
+    return ($forms_sum/($c)); 
+}
+
+//űrlap összesített átlag - munkavégzés sebessége
+function form_sum_average_speed($forms) {
+    $forms_sum = 0;
+    $c = count($forms);
+    for ($i = 0; $i < $c; $i++) {        
+        $forms_sum += $forms[$i]->form[4];        
+    }
+
+    return ($forms_sum/($c)); 
+}

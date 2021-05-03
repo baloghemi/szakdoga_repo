@@ -35,9 +35,10 @@
         ?>     
 
         @if($meeting->techniques['0'] == '1')
+            <a name="weather_report"></a>
             <h3>Hangulat - időjárás jelentés</h3>   
 
-            <form action="{{ route('weatherReport', ['meeting_id' => $meeting->id]) }}" method="GET"> 
+            <form action="{{ URL::route('weatherReport', ['meeting_id' => $meeting->id]) }}#weather_report" method="GET"> 
             <div class="table-responsive">       
             <table class="table table-bordered">
                 <thead>
@@ -143,10 +144,11 @@
         @if($meeting->techniques['1'] == '1')
             <!--Plusz-mínusz feladat létrehozásának helye-->
             <div class="card mb-4 mt-4">
-                <h3 class="card-header">Plusz-mínusz kártya létrehozása</h3>
+                <a name="plus_minus_task"></a>
+                <h3 id="plus_minus_task" class="card-header">Plusz-mínusz kártya létrehozása</h3>
                 <div class="card-body">
 
-                <form action="{{ route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}" method="GET">                      
+                <form action="{{ URL::route('newPlusMinusTask', ['meeting_id' => $meeting->id]) }}#plus_minus_task" method="GET">                      
                     <div>
                         <label for="description" class="h5">Kártya leírása</label>
                     <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Plusz-mínusz kártya leírása">{{old('text')}}</textarea>
@@ -175,6 +177,7 @@
             </div>
 
             <!--Plusz-mínusz feladat tábla-->
+            <a name="plus_minus_task_table"></a>
             <h3>Plusz-mínusz tábla</h3>
             <div class="table-responsive">
             <table class="table table-bordered">
@@ -195,14 +198,18 @@
                                     <tr>
                                         <th scope="col" style="width:20%">
                                             {{ $task->positive }}
-                                            <a class="btn btn-outline-danger btn-sm" style="float: left;"
-                                            href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                            @if(Auth::user()->id != $task->task_owner->id)
+                                                <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                                href="{{ URL::route('positiveAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">+</a>
+                                            @endif
                                         </th>
                                         <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
                                         <th scope="col" style="width:20%">
                                             {{ $task->negative }}
-                                            <a class="btn btn-outline-primary btn-sm" style="float: right;" 
-                                            href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                            @if(Auth::user()->id != $task->task_owner->id)
+                                                <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                                href="{{ URL::route('negativeAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">-</a>
+                                            @endif
                                         </th>
                                     </tr>
                                     </thead> 
@@ -229,14 +236,18 @@
                                     <tr>
                                         <th scope="col" style="width:20%">
                                             {{ $task->positive }}
-                                            <a class="btn btn-outline-danger btn-sm" style="float: left;"
-                                            href="{{ route('positiveAdd', ['task_id' => $task->id]) }}">+</a>
+                                            @if(Auth::user()->id != $task->task_owner->id)
+                                                <a class="btn btn-outline-danger btn-sm" style="float: left;"
+                                                href="{{ URL::route('positiveAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">+</a>
+                                            @endif
                                         </th>
                                         <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
                                         <th scope="col" style="width:20%">
                                             {{ $task->negative }}
-                                            <a class="btn btn-outline-primary btn-sm" style="float: right;" 
-                                            href="{{ route('negativeAdd', ['task_id' => $task->id]) }}">-</a>
+                                            @if(Auth::user()->id != $task->task_owner->id)
+                                                <a class="btn btn-outline-primary btn-sm" style="float: right;" 
+                                                href="{{ URL::route('negativeAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">-</a>
+                                            @endif
                                         </th>
                                     </tr>
                                     </thead> 
@@ -264,12 +275,13 @@
         @endif
 
         @if($meeting->techniques['2'] == '1')
+            <a name="form"></a>
             @if(!(isset($form)))
             <!--Űrlap technika-->
             <h3>Űrlap - Csapatban való készségek felmérése</h3>
-            <h5>Mennyire vagy elégedett a következőkkel a csapatban? (1 - Egyáltalán nem, 3 - Teljes mértékben)</h5>
+            <h5>Mennyire vagy elégedett a következőkkel a csapatban? (1 - Egyáltalán nem, 5 - Teljes mértékben)</h5>
 
-            <form action="{{ route('form', ['meeting_id' => $meeting->id]) }}" method="GET">
+            <form action="{{ URL::route('form', ['meeting_id' => $meeting->id]) }}#form" method="GET">
             <div class="table-responsive">       
             <table class="table table-bordered">
                 <thead>
@@ -278,6 +290,8 @@
                         <th scope="col" class="text-center">1</th>
                         <th scope="col" class="text-center">2</th>
                         <th scope="col" class="text-center">3</th>                        
+                        <th scope="col" class="text-center">4</th>                        
+                        <th scope="col" class="text-center">5</th>                        
                     </tr>
                 </thead>
                     <tbody>
@@ -291,7 +305,13 @@
                             </td>
                             <td class="text-center">
                                 <input type="radio" value="3" name="communication">
-                            </td>                            
+                            </td>     
+                            <td class="text-center">
+                                <input type="radio" value="4" name="communication">
+                            </td> 
+                            <td class="text-center">
+                                <input type="radio" value="5" name="communication">
+                            </td>                        
                         </tr>
 
                         <tr>
@@ -304,6 +324,12 @@
                             </td>
                             <td class="text-center">
                                 <input type="radio" value="3" name="help">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="help">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="5" name="help">
                             </td>
                         </tr>
 
@@ -318,6 +344,12 @@
                             <td class="text-center">
                                 <input type="radio" value="3" name="respect">
                             </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="respect">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="5" name="respect">
+                            </td>
                         </tr>
 
                         <tr>
@@ -330,6 +362,12 @@
                             </td>
                             <td class="text-center">
                                 <input type="radio" value="3" name="share">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="share">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="5" name="share">
                             </td>
                         </tr>
 
@@ -344,6 +382,12 @@
                             <td class="text-center">
                                 <input type="radio" value="3" name="speed">
                             </td>
+                            <td class="text-center">
+                                <input type="radio" value="4" name="speed">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" value="5" name="speed">
+                            </td>
                         </tr>
                     </tbody>
                 </table>   
@@ -355,10 +399,30 @@
                 </div>              
             </form> 
 
+            <!--Űrlap eredmények átlaga-->
             @else
                 <div class="text-center">
                     <h5>Az űrlap sikeresen el lett mentve!</h5>
+                    <br>
+                    <hr style="width: 50%">
+                    <br>
+                </div>              
+          
+                <div class="card">
+                    <h3 class="card-header">Eredmények:</h3>
+                    <div class="card-body">
+                        <h5>Csapat átlag: {{ form_sum_average($meeting->diaries) }}</h5>
+                        <h5>Készség átlagok:</h5>
+                        <ul class="h5">
+                            <li>Kommunikáció: {{ form_sum_average_com($meeting->diaries) }}</li>
+                            <li>Egymás segítése, támogatása: {{ form_sum_average_help($meeting->diaries) }}</li>
+                            <li>Tisztelet: {{ form_sum_average_respect($meeting->diaries) }}</li>
+                            <li>Tehermegosztás: {{ form_sum_average_share($meeting->diaries) }}</li>
+                            <li>Munkavégzés sebessége: {{ form_sum_average_speed($meeting->diaries) }}</li>
+                        </ul>
+                    </div>
                 </div>
+            
             @endif
             <br>
             <hr style="width: 50%">
@@ -367,10 +431,11 @@
             
         <!--Akciópontok létrehozásának helye-->        
         <div class="card mb-4 mt-4">
+        <a name="actionpoint"></a>
         <h3 class="card-header">Akciópont létrehozása</h3>
             <div class="card-body">
 
-            <form action="{{ route('newActionpoint', ['meeting_id' => $meeting->id]) }}" method="GET">                      
+            <form action="{{ URL::route('newActionpoint', ['meeting_id' => $meeting->id]) }}#actionpoint" method="GET">                      
                 <div>
                     <label for="description" class="h5">Akciópont leírása</label>
                     <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása"></textarea>
@@ -401,6 +466,7 @@
         </div>
 
         <!--Kanban tábla az akciópontokkal-->
+        <a name="kanban"></a>
         <h3>Kanban tábla</h3>
         <div class="table-responsive">
         <table class="table table-bordered">
@@ -424,7 +490,7 @@
                                     <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
                                     <th scope="col" style="width:15%">
                                         <a class="btn btn-outline-danger btn-sm" style="float: right;" 
-                                        href="{{ route('statusChangeRightMeeting', ['act_id' => $act->id]) }}">></a>
+                                        href="{{ URL::route('statusChangeRightMeeting', ['act_id' => $act->id]) }}#kanban">></a>
                                     </th>
                                 </tr>
                                 </thead> 
@@ -451,12 +517,12 @@
                                 <tr>
                                     <th scope="col" style="width:15%">
                                         <a class="btn btn-outline-success btn-sm" style="float: left;" 
-                                        href="{{ route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}"><</a>
+                                        href="{{ URL::route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}#kanban"><</a>
                                     </th>
                                     <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
                                     <th scope="col" style="width:15%">
                                         <a class="btn btn-outline-success btn-sm" style="float: right;" 
-                                        href="{{ route('statusChangeRightMeeting', ['act_id' => $act->id]) }}">></a>
+                                        href="{{ URL::route('statusChangeRightMeeting', ['act_id' => $act->id]) }}#kanban">></a>
                                     </th>
                                 </tr>
                                 </thead> 
@@ -483,7 +549,7 @@
                                 <tr>
                                     <th scope="col" style="width:15%">
                                         <a class="btn btn-outline-primary btn-sm" style="float: left;"
-                                        href="{{ route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}"><</a>
+                                        href="{{ URL::route('statusChangeLeftMeeting', ['act_id' => $act->id]) }}#kanban"><</a>
                                     </th>
                                     <th scope="col" style="width:70%">{{ $act->action_owner->name }}</th>
                                     <th scope="col" style="width:15%"></th>

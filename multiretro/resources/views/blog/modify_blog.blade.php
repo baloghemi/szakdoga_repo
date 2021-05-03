@@ -20,8 +20,7 @@
 
                 <div class="form-group">
                     <label for="text" class="h5">Leírás</label>
-                    <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Szöveg" value="{{ is_null(old('text')) && isset($blog) ? $blog->text : old('text') }}">
-                        {{ is_null(old('text')) && isset($blog) ? $blog->text : old('text') }}</textarea>
+                    <textarea rows="4" cols="50" class="form-control @error('text') is-invalid @enderror" name="text" id="text" placeholder="Szöveg" value="{{ is_null(old('text')) && isset($blog) ? $blog->text : old('text') }}">{{ is_null(old('text')) && isset($blog) ? $blog->text : old('text') }}</textarea>
                     @error('text')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
