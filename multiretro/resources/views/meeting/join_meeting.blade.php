@@ -403,7 +403,7 @@
                 </div>              
             </form> 
 
-            <!--Űrlap eredmények átlaga-->
+            <!--Űrlap eredmények átlaga
             @else
                 <div class="text-center">
                     <h5>Az űrlap sikeresen el lett mentve!</h5>
@@ -426,7 +426,7 @@
                         </ul>
                     </div>
                 </div>
-            
+            -->
             @endif
             <br>
             <hr style="width: 50%">
