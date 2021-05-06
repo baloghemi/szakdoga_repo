@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="width: 50%; " class= "mx-auto">
+<div class= "container mx-auto">
 
     <div class="card">
         <div class="card-header h2">Blog módosítása</div>

@@ -201,6 +201,7 @@
                                             @if(Auth::user()->id != $task->task_owner->id)
                                                 <a class="btn btn-outline-danger btn-sm" style="float: left;"
                                                 href="{{ URL::route('positiveAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">+</a>
+                                            @else +
                                             @endif
                                         </th>
                                         <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
@@ -209,6 +210,7 @@
                                             @if(Auth::user()->id != $task->task_owner->id)
                                                 <a class="btn btn-outline-primary btn-sm" style="float: right;" 
                                                 href="{{ URL::route('negativeAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">-</a>
+                                            @else -
                                             @endif
                                         </th>
                                     </tr>
@@ -239,6 +241,7 @@
                                             @if(Auth::user()->id != $task->task_owner->id)
                                                 <a class="btn btn-outline-danger btn-sm" style="float: left;"
                                                 href="{{ URL::route('positiveAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">+</a>
+                                            @else +
                                             @endif
                                         </th>
                                         <th scope="col" style="width:60%">{{ $task->task_owner->name }}</th>
@@ -247,6 +250,7 @@
                                             @if(Auth::user()->id != $task->task_owner->id)
                                                 <a class="btn btn-outline-primary btn-sm" style="float: right;" 
                                                 href="{{ URL::route('negativeAdd', ['task_id' => $task->id]) }}#plus_minus_task_table">-</a>
+                                            @else -
                                             @endif
                                         </th>
                                     </tr>
@@ -438,7 +442,7 @@
             <form action="{{ URL::route('newActionpoint', ['meeting_id' => $meeting->id]) }}#actionpoint" method="GET">                      
                 <div>
                     <label for="description" class="h5">Akciópont leírása</label>
-                    <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása"></textarea>
+                    <textarea rows="4" cols="50" class="form-control @error('description') is-invalid @enderror" name="description" id="description" placeholder="Akciópont leírása">{{old("description")}}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
