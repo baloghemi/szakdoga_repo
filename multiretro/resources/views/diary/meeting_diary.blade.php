@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <?php
+        use App\Models\Diary;
+        $diary = Diary::where('meeting_id', $meeting->id)->first();                     
+        $weather_report = isset($diary) ? $diary->weather_report : null;            
+        $form = isset($diary) ? $diary->form : null;  
+    ?>
+
     <div class="container mx-auto">    
         <div style="margin-bottom: 2em;">
             <h2 class="text-center">{{ $meeting->name }} napló</h2>
@@ -10,17 +17,20 @@
 
         <div style="display: flex; justify-content: center; max-width: 350px; margin-right: auto; margin-left: auto;">
             <ul>
-                <li class="h6">Időjárás jelentés: {{ weather_sum_average($meeting->diaries) }}</li>
-                <li class="h6">Űrlap csapat átlag: {{ form_sum_average($meeting->diaries) }}</li>
-                <li class="h6">Űrlap készség átlagok:</li>
-                <ul class="h6">
-                    <li>Kommunikáció: {{ form_sum_average_com($meeting->diaries) }}</li>
-                    <li>Egymás segítése, támogatása: {{ form_sum_average_help($meeting->diaries) }}</li>
-                    <li>Tisztelet: {{ form_sum_average_respect($meeting->diaries) }}</li>
-                    <li>Tehermegosztás: {{ form_sum_average_share($meeting->diaries) }}</li>
-                    <li>Munkavégzés sebessége: {{ form_sum_average_speed($meeting->diaries) }}</li>
-                </ul>
-                </li>
+                @if(isset($weather_report))
+                    <li class="h6">Időjárás jelentés: {{ weather_sum_average($meeting->diaries) }}</li>
+                @endif
+                @if(isset($form))
+                    <li class="h6">Űrlap csapat átlag: {{ form_sum_average($meeting->diaries) }}</li>
+                    <li class="h6">Űrlap készség átlagok:</li>
+                    <ul class="h6">
+                        <li>Kommunikáció: {{ form_sum_average_com($meeting->diaries) }}</li>
+                        <li>Egymás segítése, támogatása: {{ form_sum_average_help($meeting->diaries) }}</li>
+                        <li>Tisztelet: {{ form_sum_average_respect($meeting->diaries) }}</li>
+                        <li>Tehermegosztás: {{ form_sum_average_share($meeting->diaries) }}</li>
+                        <li>Munkavégzés sebessége: {{ form_sum_average_speed($meeting->diaries) }}</li>
+                    </ul>
+                @endif                
             </ul>
         </div>
         
@@ -28,10 +38,7 @@
         <hr style="width: 35%">
         <br>
     
-    <?php
-        use App\Models\Diary;
-        $diary = Diary::where('meeting_id', $meeting->id)->first();  
-    ?>
+    
 
     <div class="text-center">
         <h4>Naplózott adatok</h4>        
