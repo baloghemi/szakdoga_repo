@@ -168,6 +168,16 @@
                         <input class="form-check-input" type="radio" value="1" name="feeling">
                         <label class="form-check-label" for="feeling">Negatív</label>
                     </div>           
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     
                     <br>
                     <button type="submit" class="btn btn-primary">Mentés</button>            
@@ -461,6 +471,16 @@
                         <label class="form-check-label" for="user">{{ $user->name }}</label>
                     </div>           
                 @endforeach 
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 
                 <br>
                 <button type="submit" class="btn btn-primary">Mentés</button>            

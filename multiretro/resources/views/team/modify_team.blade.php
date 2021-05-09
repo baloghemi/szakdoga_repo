@@ -23,13 +23,23 @@
                     @foreach ($users as $user)
                     @if ($user->id != Auth::user()->id)
                         <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{$user->id}}" name="people[]"                         
-                                {{is_null(old('people')) && isset($team) && $team->users()->get()->pluck('id')->contains($user->id) ? "checked" : old('people')}}>
-                                <label class="form-check-label" for="people{{$user->id}}">{{ $user->name }}</label>                                
+                            <input class="form-check-input" type="checkbox" value="{{$user->id}}" name="people[]"                         
+                            {{is_null(old('people')) && isset($team) && $team->users()->get()->pluck('id')->contains($user->id) ? "checked" : old('people')}}>
+                            <label class="form-check-label" for="people{{$user->id}}">{{ $user->name }}</label>                                
                         </div>
                     @endif
                     @endforeach     
                 </div>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <br>
                 <button type="submit" class="btn btn-primary">Mentés</button>
